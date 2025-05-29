@@ -1,9 +1,10 @@
-package ch.hevs.gdx2d.hero
+package ch.hevs.gdx2d.entity
+
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.math.{Interpolation, Vector2}
+import com.badlogic.gdx.math.Vector2
 
 class Hero(startX: Float, startY: Float) extends DrawableObject {
   private var _position: Vector2 = new Vector2(startX, startY)

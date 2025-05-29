@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.hero.Hero
+import ch.hevs.gdx2d.entity.Hero
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
 import com.badlogic.gdx.{Gdx, Input}
