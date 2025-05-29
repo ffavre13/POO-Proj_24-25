@@ -43,4 +43,10 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   def draw(g: GdxGraphics): Unit = {
     g.draw(SS.sprites(0)(0), position.x, position.y)
   }
+
+  def shoot(): Unit = {
+    val projVel = new Vector2()
+    projVel.x += 1
+    Projectile.create(position, projVel)
+  }
 }

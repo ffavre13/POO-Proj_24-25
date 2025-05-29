@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.entity.Hero
+import ch.hevs.gdx2d.entity.{Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
 import com.badlogic.gdx.{Gdx, Input}
@@ -37,6 +37,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     tiledMapRenderer.render()
 
     hero.draw(g)
+    Projectile.update(g)
     g.drawFPS()
   }
 
@@ -51,6 +52,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.A  => vel.x += -1
       case Input.Keys.D => vel.x += 1
       case Input.Keys.W    => vel.y += 1
+      case Input.Keys.SPACE => hero.shoot()
       case _ => Logger.log(s"Key '$keycode' pressed")
     }
     hero.velocity = vel
