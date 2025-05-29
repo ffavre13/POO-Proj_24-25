@@ -1,4 +1,4 @@
-package Hero
+package ch.hevs.gdx2d.hero
 
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
 import ch.hevs.gdx2d.lib.GdxGraphics
