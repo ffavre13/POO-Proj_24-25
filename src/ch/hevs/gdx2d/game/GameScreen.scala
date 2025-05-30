@@ -1,11 +1,13 @@
 package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.entity.{Hero, Projectile}
+import ch.hevs.gdx2d.entity.Projectile.remove
+import ch.hevs.gdx2d.entity.{Enemy, Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
-import com.badlogic.gdx.{Gdx, Input}
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.controllers.Controller
+import com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer.Random
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapRenderer, TiledMapTile, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.math.Vector2
@@ -18,6 +20,8 @@ class GameScreen extends PortableApplication(1920, 1080) {
   private var tiledLayer: TiledMapTileLayer = null
   private var zoom: Float = 0
 
+  private var drawHitbox: Boolean = false
+
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
@@ -26,18 +30,32 @@ class GameScreen extends PortableApplication(1920, 1080) {
     tiledLayer = tiledMap.getLayers.get(0).asInstanceOf[TiledMapTileLayer]
 
     hero = new Hero(getWindowWidth/2, getWindowHeight/2)
+
+    for(i <- 0 until 3) {
+      val posEnemy = new Vector2()
+      posEnemy.x = 500 + i*30
+      posEnemy.y = 500 + i*30
+      Enemy.create(posEnemy)
+    }
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
 
-    hero.move()
 
     tiledMapRenderer.setView(g.getCamera)
     tiledMapRenderer.render()
 
-    hero.draw(g)
+    hero.update(g)
     Projectile.update(g)
+    Enemy.update(g)
+
+    if(drawHitbox) {
+      displayHitbox(g)
+    }
+
+    checkHitbox()
+
     g.drawFPS()
   }
 
@@ -45,14 +63,18 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onKeyDown(keycode: Int): Unit = {
     super.onKeyDown(keycode)
 
-    var vel: Vector2 = hero.velocity
-
+    val vel: Vector2 = hero.velocity
     keycode match {
       case Input.Keys.S  => vel.y += -1
       case Input.Keys.A  => vel.x += -1
       case Input.Keys.D => vel.x += 1
       case Input.Keys.W    => vel.y += 1
       case Input.Keys.SPACE => hero.shoot()
+      case Input.Keys.UP => hero.turn("UP")
+      case Input.Keys.DOWN => hero.turn("DOWN")
+      case Input.Keys.RIGHT => hero.turn("RIGHT")
+      case Input.Keys.LEFT => hero.turn("LEFT")
+      case Input.Keys.Z => if(drawHitbox) drawHitbox = false else drawHitbox = true
       case _ => Logger.log(s"Key '$keycode' pressed")
     }
     hero.velocity = vel
@@ -66,7 +88,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.A  => vel.x -= -1
       case Input.Keys.D => vel.x -= 1
       case Input.Keys.W    => vel.y -= 1
-      case _ => Logger.log(s"Key '$keycode' pressed")
+      case _ =>
     }
     hero.velocity = vel
   }
@@ -90,16 +112,19 @@ class GameScreen extends PortableApplication(1920, 1080) {
     if (axisCode == Xbox.L_STICK_VERTICAL_AXIS) hero.velocity.y = -value
   }
 
-  private def isWalkable(tile: TiledMapTile): Boolean = {
-    if (tile == null) return false
-    val test = tile.getProperties.get("walkable")
-    return test.toString.toBoolean
+  def checkHitbox(): Unit = {
+    for(p <- Projectile.allProjectiles) {
+      for(e <- Enemy.allEnemy) {
+        if(e.hitbox.intersects(p.hitbox)) {
+          Projectile.remove(p)
+          Enemy.remove(e)
+        }
+      }
+    }
   }
 
-  private def getSpeed(tile: TiledMapTile): Float = {
-    if (tile == null) return 100f // Default speed
-    val test = tile.getProperties.get("speed")
-    return test.toString.toFloat
+  def displayHitbox(g: GdxGraphics): Unit = {
+    hero.drawHitbox(g)
   }
 }
 
