@@ -1,19 +1,20 @@
 package ch.hevs.gdx2d.game
 
+import ch.hevs.gdx2d.CollisionManager
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
 import ch.hevs.gdx2d.entity.{Enemy, Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.controllers.Controller
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2
 
 class GameScreen extends PortableApplication(1920, 1080) {
   var hero: Hero = null
-
   var dungeon: Dungeon = null
-
   var ctrl: Controller = null
+  var cam : OrthographicCamera = null
 
   private var drawHitbox: Boolean = false
 
@@ -24,6 +25,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon.generate()
 
     hero = new Hero(getWindowWidth/2, getWindowHeight/2)
+
 
     for(i <- 0 until 3) {
       val posEnemy = new Vector2()
@@ -36,9 +38,9 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
 
-    dungeon.trySwitchRoom(hero)
+    dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.setView(g.getCamera)
+    dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.render()
 
-    dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).display(g)
 
     hero.update(g)
     Projectile.update(g)
