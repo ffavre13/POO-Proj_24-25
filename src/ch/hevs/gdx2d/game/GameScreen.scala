@@ -1,33 +1,27 @@
 package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.entity.Projectile.remove
 import ch.hevs.gdx2d.entity.{Enemy, Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.controllers.Controller
-import com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer.Random
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
-import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapRenderer, TiledMapTile, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.math.Vector2
 
 class GameScreen extends PortableApplication(1920, 1080) {
   var hero: Hero = null
+
+  var dungeon: Dungeon = null
+
   var ctrl: Controller = null
-  private var tiledMap: TiledMap = null
-  private var tiledMapRenderer: TiledMapRenderer = null
-  private var tiledLayer: TiledMapTileLayer = null
-  private var zoom: Float = 0
 
   private var drawHitbox: Boolean = false
 
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
-    tiledMap = new TmxMapLoader().load("data/maps/desert.tmx")
-    tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap)
-    tiledLayer = tiledMap.getLayers.get(0).asInstanceOf[TiledMapTileLayer]
+    dungeon = new Dungeon(16,16, 20)
+    dungeon.generate()
 
     hero = new Hero(getWindowWidth/2, getWindowHeight/2)
 
@@ -42,19 +36,21 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
 
+    dungeon.trySwitchRoom(hero)
 
-    tiledMapRenderer.setView(g.getCamera)
-    tiledMapRenderer.render()
+    dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).display(g)
 
     hero.update(g)
     Projectile.update(g)
-    Enemy.update(g)
+    Enemy.update(g, hero.position)
+
 
     if(drawHitbox) {
       displayHitbox(g)
     }
 
     checkHitbox()
+
 
     g.drawFPS()
   }

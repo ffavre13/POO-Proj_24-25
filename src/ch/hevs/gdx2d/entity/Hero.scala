@@ -15,7 +15,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   private var _direction: Vector2 = new Vector2(0,1)
   private var textureX: Int = 0
 
-  private val SPEED: Float = 100f
+  private val SPEED: Float = 200f
   private val SPRITE_WIDTH: Int = 32
   private val SPRITE_HEIGHT: Int = 32
   private val SS = new Spritesheet("data/images/lumberjack_sheet32.png", SPRITE_WIDTH, SPRITE_HEIGHT);
