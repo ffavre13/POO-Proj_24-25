@@ -3,9 +3,12 @@ import ch.hevs.gdx2d.entity.Hero
 import ch.hevs.gdx2d.utility.PositionXY
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.maps.MapObject
+import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 
+import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
 class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
@@ -48,16 +51,24 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
       for (c <- map(l).indices) {
         if(map(l)(c) != null) {
           if(l - 1 >= 0 && map(l-1)(c) != null) {
+            //UP
             map(l)(c).tiledLayer.setCell(15, 15, dCell)
+            map(l)(c).createNewDoorHitbox(15*65, 15*64, 64, 65, "UP")
           }
           if(l + 1 <= map.length - 1 && map(l+1)(c) != null) {
+            //DOWN
             map(l)(c).tiledLayer.setCell(15, 0, dCell)
+            map(l)(c).createNewDoorHitbox(15*64, 0, 64, 65, "DOWN")
           }
           if(c - 1 >= 0 && map(l)(c-1) != null) {
+            //LEFT
             map(l)(c).tiledLayer.setCell(0, 7, dCell)
+            map(l)(c).createNewDoorHitbox(0, 7*64, 65, 64, "LEFT")
           }
           if(c + 1 <= map(0).length - 1 && map(l)(c+1) != null) {
+            //RIGHT
             map(l)(c).tiledLayer.setCell(29, 7, dCell)
+            map(l)(c).createNewDoorHitbox(29*64, 7*64, 65, 64, "RIGHT")
           }
         }
       }
@@ -104,31 +115,30 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
     }
   }
 
-//  def trySwitchRoom(hero: Hero): Unit = {
-//    val tiledMap = map(currentPosY)(currentPosX).tiledMap
-//    try {
-//      val tileX = (hero.position.x / 64).toInt
-//      val tileY = (hero.position.y / 64).toInt
-//
-//      if (layout(tileY)(tileX) == 2) {
-//        if (tileY == 0 && currentPosY > 0) {
-//          _currentPosY -= 1
-//          hero.position.y = (layout.length - 2) * 64
-//        } else if (tileY == layout.length - 1 && currentPosY < height - 1) {
-//          _currentPosY += 1
-//          hero.position.y = 64
-//        } else if (tileX == 0 && currentPosX > 0) {
-//          _currentPosX -= 1
-//          hero.position.x = (layout(0).length - 2) * 64
-//        } else if (tileX == layout(0).length - 1 && currentPosX < width - 1) {
-//          _currentPosX += 1
-//          hero.position.x = 64
-//        }
-//      }
-//    }
-//    catch {
-//      case e: Exception =>
-//    }
-//
-//  }
+  def switchRoom(hero: Hero, door: MapObject): Unit = {
+    val direction = door.getProperties.get("direction").toString
+    val room = map(currentPosY)(currentPosX)
+    val roomWidth = room.tiledLayer.getWidth
+    val roomHeight = room.tiledLayer.getHeight
+
+    direction match {
+      case "LEFT" => {
+        _currentPosX -= 1
+        hero.position.x = (roomWidth - 2) * 64
+      }
+      case "RIGHT" => {
+        _currentPosX += 1
+        hero.position.x = 64
+      }
+      case "UP" =>{
+        _currentPosY -= 1
+        hero.position.y = 64
+      }
+      case "DOWN" => {
+        _currentPosY += 1
+        hero.position.y = (roomHeight - 2) * 64
+      }
+      case _ => println("wrong direction")
+    }
+  }
 }

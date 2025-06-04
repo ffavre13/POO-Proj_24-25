@@ -21,7 +21,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
-    dungeon = new Dungeon(16,16, 20)
+    dungeon = new Dungeon(16,16, 3)
     dungeon.generate()
 
     hero = new Hero(getWindowWidth/2, getWindowHeight/2)
@@ -41,7 +41,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.setView(g.getCamera)
     dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.render()
 
-
+    checkCollision()
     hero.update(g)
     Projectile.update(g)
     Enemy.update(g, hero.position)
@@ -123,6 +123,30 @@ class GameScreen extends PortableApplication(1920, 1080) {
 
   def displayHitbox(g: GdxGraphics): Unit = {
     hero.drawHitbox(g)
+  }
+
+  def checkCollision(): Unit = {
+    for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsDoor) {
+      val rectangle = CollisionManager.getRectangle2D(e)
+      if (hero.hitbox.intersects(rectangle)) {
+        dungeon.switchRoom(hero, e)
+      }
+    }
+    for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).rectangleCollisionsWall) {
+      if(hero.hitbox.intersects(e)) {
+        (e.getX, e.getY) match {
+          case (0,0)  => {
+            e.getHeight match {
+              case 1024 =>println("") // LEFT
+              case _ => println("") // DOWN
+            }
+          }
+          case (0,960) => println("") //UP
+          case (1856,0) => println("") //RIGHT
+          case _ => println("Error in collision")
+        }
+      }
+    }
   }
 }
 

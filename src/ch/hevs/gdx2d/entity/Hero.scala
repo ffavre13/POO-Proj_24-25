@@ -7,10 +7,12 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
+import java.awt.geom.Rectangle2D
+
 class Hero(startX: Float, startY: Float) extends DrawableObject {
   private var _position: Vector2 = new Vector2(startX, startY)
   private var _velocity: Vector2 = new Vector2(0,0)
-  private var _hitbox: RectangleHitbox = RectangleHitbox(startX, startY, 32, 32)
+  private var _hitbox: Rectangle2D = new Rectangle2D.Float(startX, startY, 32, 32)
 
   private var _direction: Vector2 = new Vector2(0,1)
   private var textureX: Int = 0
@@ -20,7 +22,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   private val SPRITE_HEIGHT: Int = 32
   private val SS = new Spritesheet("data/images/lumberjack_sheet32.png", SPRITE_WIDTH, SPRITE_HEIGHT);
 
-  def hitbox: RectangleHitbox = _hitbox
+  def hitbox: Rectangle2D = _hitbox
 
   def velocity: Vector2 = _velocity
   def velocity_= (newVelocity: Vector2): Unit = {
@@ -39,8 +41,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
 
   def update(g: GdxGraphics): Unit = {
     move()
-    hitbox.posX = position.x + SPRITE_WIDTH/2
-    hitbox.posY = position.y + SPRITE_HEIGHT/2
+    _hitbox = new Rectangle2D.Float(position.x + SPRITE_WIDTH/2, position.y + SPRITE_HEIGHT/2, 32, 32)
     draw(g)
   }
 
@@ -90,7 +91,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   }
 
   def drawHitbox(g: GdxGraphics): Unit = {
-    hitbox.draw(g)
+    g.drawRectangle(hitbox.getX.toFloat, hitbox.getY.toFloat, hitbox.getHeight.toFloat, hitbox.getWidth.toFloat, 90)
   }
 
   def shoot(): Unit = {
