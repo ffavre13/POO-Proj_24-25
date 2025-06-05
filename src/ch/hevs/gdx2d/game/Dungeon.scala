@@ -53,22 +53,22 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
           if(l - 1 >= 0 && map(l-1)(c) != null) {
             //UP
             map(l)(c).tiledLayer.setCell(15, 15, dCell)
-            map(l)(c).createNewDoorHitbox(15*65, 15*64, 64, 65, "UP")
+            map(l)(c).createNewDoorHitbox(15*65, 15*64, 64, 66, "UP")
           }
           if(l + 1 <= map.length - 1 && map(l+1)(c) != null) {
             //DOWN
             map(l)(c).tiledLayer.setCell(15, 0, dCell)
-            map(l)(c).createNewDoorHitbox(15*64, 0, 64, 65, "DOWN")
+            map(l)(c).createNewDoorHitbox(15*64, 0, 64, 66, "DOWN")
           }
           if(c - 1 >= 0 && map(l)(c-1) != null) {
             //LEFT
             map(l)(c).tiledLayer.setCell(0, 7, dCell)
-            map(l)(c).createNewDoorHitbox(0, 7*64, 65, 64, "LEFT")
+            map(l)(c).createNewDoorHitbox(0, 7*64, 66, 64, "LEFT")
           }
           if(c + 1 <= map(0).length - 1 && map(l)(c+1) != null) {
             //RIGHT
             map(l)(c).tiledLayer.setCell(29, 7, dCell)
-            map(l)(c).createNewDoorHitbox(29*64, 7*64, 65, 64, "RIGHT")
+            map(l)(c).createNewDoorHitbox(29*64, 7*64, 66, 64, "RIGHT")
           }
         }
       }
@@ -124,19 +124,19 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
     direction match {
       case "LEFT" => {
         _currentPosX -= 1
-        hero.position.x = (roomWidth - 2) * 64
+        hero.position.x = (roomWidth - 2) * 64 - 10
       }
       case "RIGHT" => {
         _currentPosX += 1
-        hero.position.x = 64
+        hero.position.x = 64 + 10
       }
       case "UP" =>{
         _currentPosY -= 1
-        hero.position.y = 64
+        hero.position.y = 64 + 10
       }
       case "DOWN" => {
         _currentPosY += 1
-        hero.position.y = (roomHeight - 2) * 64
+        hero.position.y = (roomHeight - 2) * 64 - 10
       }
       case _ => println("wrong direction")
     }

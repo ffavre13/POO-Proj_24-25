@@ -41,8 +41,9 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.setView(g.getCamera)
     dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.render()
 
-    checkCollision()
     hero.update(g)
+    checkCollision()
+
     Projectile.update(g)
     Enemy.update(g, hero.position)
 
@@ -82,10 +83,10 @@ class GameScreen extends PortableApplication(1920, 1080) {
     var vel: Vector2 = hero.velocity
 
     keycode match {
-      case Input.Keys.S  => vel.y -= -1
-      case Input.Keys.A  => vel.x -= -1
-      case Input.Keys.D => vel.x -= 1
-      case Input.Keys.W    => vel.y -= 1
+      case Input.Keys.S  => vel.y = 0
+      case Input.Keys.A  => vel.x = 0
+      case Input.Keys.D => vel.x = 0
+      case Input.Keys.W    => vel.y = 0
       case _ =>
     }
     hero.velocity = vel
@@ -132,18 +133,23 @@ class GameScreen extends PortableApplication(1920, 1080) {
         dungeon.switchRoom(hero, e)
       }
     }
-    for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).rectangleCollisionsWall) {
-      if(hero.hitbox.intersects(e)) {
-        (e.getX, e.getY) match {
-          case (0,0)  => {
-            e.getHeight match {
-              case 1024 =>println("") // LEFT
-              case _ => println("") // DOWN
-            }
-          }
-          case (0,960) => println("") //UP
-          case (1856,0) => println("") //RIGHT
-          case _ => println("Error in collision")
+    for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsWall) {
+      val rectangle = CollisionManager.getRectangle2D(e)
+      if (hero.hitbox.intersects(rectangle)) {
+        e.getProperties.get("position") match {
+          case "LEFT" =>
+            if (hero.velocity.x < 0) hero.velocity.x = 0
+
+          case "RIGHT" =>
+            if (hero.velocity.x > 0) hero.velocity.x = 0
+
+          case "DOWN" =>
+            if (hero.velocity.y < 0) hero.velocity.y = 0
+
+          case "UP" =>
+            if (hero.velocity.y > 0) hero.velocity.y = 0
+
+          case _ =>
         }
       }
     }

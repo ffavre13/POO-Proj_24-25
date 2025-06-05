@@ -5,9 +5,9 @@
     },
     "activeFile": "data/maps/map.tmx",
     "expandedProjectPaths": [
-        ".",
         "data/tilesets",
-        "data/maps"
+        "data/maps",
+        "."
     ],
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
@@ -46,11 +46,11 @@
             "scaleInDock": 1
         },
         "data/maps/map.tmx": {
-            "scale": 0.25,
-            "selectedLayer": 2,
+            "scale": 0.33,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 718,
-                "y": 574
+                "x": 1006.060606060606,
+                "y": 156.060606060606
             }
         },
         "data/tilesets/[64x64] Dungeon Bricks Plain.tsx": {
