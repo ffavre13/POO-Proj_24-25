@@ -14,11 +14,12 @@ class TargetPlayerEnemies(posX: Int, posY: Int) extends Enemy(posX, posY) {
   private var _velocity: Vector2 = new Vector2(0, 0)
 
   override def update(elapsedTime: Float): Unit = {
+    super.update(elapsedTime)
     move()
   }
 
   override def draw(g: GdxGraphics): Unit = {
-    g.drawFilledCircle(position.x, position.y, RADIUS, new Color(Color.BLACK))
+    g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, new Color(Color.BLACK))
   }
 
   private def move(): Unit = {

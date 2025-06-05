@@ -1,6 +1,6 @@
 package ch.hevs.gdx2d.game
 
-import ch.hevs.gdx2d.CollisionManager
+import ch.hevs.gdx2d.utility.CollisionManager
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
 import ch.hevs.gdx2d.entity.enemies.{Enemy, MeleeEnemy, ShootingEnemies, TargetPlayerEnemies}
 import ch.hevs.gdx2d.entity.{Hero, Projectile}
@@ -25,7 +25,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
 
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
     Enemy.add(new ShootingEnemies(100, 100, false, false, false, true))
-    Enemy.add(new TargetPlayerEnemies(100, 100))
+    Enemy.add(new TargetPlayerEnemies(200, 200))
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
@@ -42,8 +42,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     if(drawHitbox) {
       displayHitbox(g)
     }
-    checkHitbox()
-
+    CollisionManager.checkHitbox()
     g.drawFPS()
   }
 
@@ -113,19 +112,9 @@ class GameScreen extends PortableApplication(1920, 1080) {
   }
   // </editor-fold>
 
-  def checkHitbox(): Unit = {
-    for(p <- Projectile.allProjectiles) {
-      for(e <- Enemy.enemies) {
-        if(e.hitbox.intersects(p.hitbox)) {
-          Projectile.remove(p)
-          Enemy.remove(e)
-        }
-      }
-    }
-  }
-
   def displayHitbox(g: GdxGraphics): Unit = {
     GameState.hero.drawHitbox(g)
+    Enemy.displayHitboxes(g)
   }
 
   def checkCollision(): Unit = {

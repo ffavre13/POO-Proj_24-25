@@ -1,6 +1,6 @@
 package ch.hevs.gdx2d.game
 
-import ch.hevs.gdx2d.CollisionManager
+import ch.hevs.gdx2d.utility.CollisionManager
 import ch.hevs.gdx2d.entity.enemies.Enemy
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Texture
@@ -58,7 +58,7 @@ object Room {
   )
 
 
-  def getRandomRoom(): Room = {
+  def getRandomRoom: Room = {
     return new Room(allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt),null)
   }
 }

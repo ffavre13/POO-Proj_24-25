@@ -1,6 +1,7 @@
+package ch.hevs.gdx2d.utility
 
-package ch.hevs.gdx2d
-
+import ch.hevs.gdx2d.entity.Projectile
+import ch.hevs.gdx2d.entity.enemies.Enemy
 import com.badlogic.gdx.maps.{MapLayer, MapObject, MapProperties}
 
 import java.awt.geom.Rectangle2D
@@ -31,5 +32,29 @@ object CollisionManager{
       res.append(getRectangle2D(a))
     }
     return res.toArray
+  }
+
+  /**
+   * Checks players, projectiles and enemies hitboxes
+   */
+  def checkHitbox(): Unit = {
+
+    for(p <- Projectile.projectiles) {
+      if (p.owner == "HERO") {
+        for(e <- Enemy.enemies) {
+          if(e.hitbox.intersects(p.hitbox)) {
+            Projectile.remove(p)
+            Enemy.remove(e)
+          }
+        }
+      }
+      else if (p.owner == "ENEMY") {
+        if (p.hitbox.intersects(GameState.hero.hitbox)) {
+          println("PLAYER HAS BEEN HIT")
+        }
+      }
+
+    }
+
   }
 }

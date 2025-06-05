@@ -10,15 +10,17 @@ import com.badlogic.gdx.math.Vector2
 import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
-class Projectile (pos: Vector2, vel: Vector2) extends DrawableObject {
-  private var SPEED: Float = 200f
-  private var RADIUS: Float = 5
+class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObject {
+  private val SPEED: Float = 200f
+  private val RADIUS: Float = 5
 
   private var _position = pos
   private var _velocity = vel
   private var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(pos.x,pos.y, RADIUS*2, RADIUS*2)
+  private var _owner = own // "HERO" to deal damage to enemies or "ENEMY" to deal damage to the player
 
   def hitbox: Rectangle2D.Float = _hitbox
+  def owner: String = _owner
 
   def position: Vector2 = _position
   def position_= (newPos: Vector2): Unit = {
@@ -54,24 +56,27 @@ class Projectile (pos: Vector2, vel: Vector2) extends DrawableObject {
 }
 
 object Projectile {
-  private var _allProjectiles: ArrayBuffer[Projectile] = ArrayBuffer.empty
+  private var _projectiles: ArrayBuffer[Projectile] = ArrayBuffer.empty
 
-  def allProjectiles: Array[Projectile] = _allProjectiles.toArray
+  def projectiles: Array[Projectile] = _projectiles.toArray
+
+  def getHeroProjectile: Array[Projectile]  = _projectiles.filter(a => a._owner == "HERO").toArray
+  def getEnemyProjectile: Array[Projectile] = _projectiles.filter(a => a._owner == "ENEMY").toArray
 
   def update(g: GdxGraphics): Unit = {
-    for (e <- allProjectiles) {
+    for (e <- projectiles) {
       e.move()
       e.draw(g)
     }
   }
 
-  def create(position: Vector2, velocity: Vector2): Unit = {
-    val projectile = new Projectile(position, velocity)
-    _allProjectiles.addOne(projectile)
+  def create(position: Vector2, velocity: Vector2, owner: String): Unit = {
+    val projectile = new Projectile(position, velocity, owner)
+    _projectiles.addOne(projectile)
   }
 
   def remove(p: Projectile): Unit = {
-    val tmp: Int = _allProjectiles.indexOf(p)
-    if (tmp >= 0) _allProjectiles.remove(tmp)
+    val tmp: Int = _projectiles.indexOf(p)
+    if (tmp >= 0) _projectiles.remove(tmp)
   }
 }

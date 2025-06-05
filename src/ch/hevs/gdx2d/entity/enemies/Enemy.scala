@@ -16,10 +16,11 @@ import scala.collection.mutable.ArrayBuffer
  * @param startY The starting Y position of an enemy
  */
 abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entity {
-  protected var RADIUS: Int = 10
+  protected val SPRITE_WIDTH: Int = 64
+  protected val SPRITE_HEIGHT: Int = 64
 
   protected var _position: Vector2 = new Vector2(startX, startY)
-  protected var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(startX , startY, RADIUS*2, RADIUS*2)
+  protected var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(startX , startY, SPRITE_WIDTH, SPRITE_HEIGHT)
 
   def position: Vector2 = _position
   def position_= (newPos: Vector2): Unit = _position = newPos
@@ -30,7 +31,10 @@ abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entit
    * Updates the enemy (meant to be called on each frame generation)
    * @param elapsedTime Time elapsed between two frames
    */
-  def update(elapsedTime: Float): Unit
+  def update(elapsedTime: Float): Unit = {
+    _hitbox.x = _position.x
+    _hitbox.y = _position.y
+  }
 
   /**
    * Draws the enemy on the scrfeen
@@ -57,6 +61,11 @@ object Enemy {
       e.update(Gdx.graphics.getDeltaTime)
       e.draw(g)
     }
+  }
+
+  def displayHitboxes(g: GdxGraphics): Unit = {
+    for (e <- _enemies)
+      g.drawRectangle(e.hitbox.getX.toFloat, e.hitbox.getY.toFloat, e.hitbox.getWidth.toFloat, e.hitbox.getHeight.toFloat, 90)
   }
 
   /**
