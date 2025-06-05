@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D
 
 class Hero(startX: Float, startY: Float) extends DrawableObject {
   private val SPEED: Float = 200f
+  private val SHOOT_COOLDOWN : Float = 0.5f
   private val SPRITE_WIDTH: Int = 64
   private val SPRITE_HEIGHT: Int = 64
   private val SS = new Spritesheet("data/images/test.png", SPRITE_WIDTH, SPRITE_HEIGHT);
@@ -21,6 +22,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
 
   private var _direction: Vector2 = new Vector2(0,1)
   private var textureX: Int = 0
+  private var dt_shoot: Float = 0
 
   def hitbox: Rectangle2D = _hitbox
 
@@ -42,6 +44,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   def update(g: GdxGraphics): Unit = {
     move()
     _hitbox = new Rectangle2D.Float(position.x, position.y, SPRITE_WIDTH.toFloat, SPRITE_HEIGHT.toFloat)
+    dt_shoot = Gdx.graphics.getDeltaTime + dt_shoot
     draw(g)
   }
 
@@ -95,14 +98,17 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   }
 
   def shoot(): Unit = {
-    val projVel = new Vector2()
-    projVel.x = direction.x
-    projVel.y = direction.y
+    if (dt_shoot > SHOOT_COOLDOWN) {
+      val projVel = new Vector2()
+      projVel.x = direction.x
+      projVel.y = direction.y
 
-    val projPos = new Vector2()
-    projPos.x = position.x + SPRITE_WIDTH/2
-    projPos.y = position.y + SPRITE_HEIGHT/2
+      val projPos = new Vector2()
+      projPos.x = position.x + SPRITE_WIDTH / 2
+      projPos.y = position.y + SPRITE_HEIGHT / 2
 
-    Projectile.create(projPos, projVel)
+      Projectile.create(projPos, projVel)
+      dt_shoot = 0
+    }
   }
 }

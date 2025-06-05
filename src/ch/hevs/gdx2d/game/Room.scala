@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.CollisionManager
-import ch.hevs.gdx2d.entity.Enemy
+import ch.hevs.gdx2d.entity.enemies.Enemy
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.maps.objects.RectangleMapObject

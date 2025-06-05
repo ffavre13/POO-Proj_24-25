@@ -1,6 +1,6 @@
-package ch.hevs.gdx2d.entity
+package ch.hevs.gdx2d.entity.enemies
 
-import ch.hevs.gdx2d.hitbox.{CircleHitbox, RectangleHitbox}
+import ch.hevs.gdx2d.hitbox.CircleHitbox
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import com.badlogic.gdx.Gdx
@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
 
-class Enemy(startX: Float, startY: Float) extends DrawableObject {
+class MeleeEnemy(startX: Float, startY: Float) extends DrawableObject {
   private var RADIUS: Int = 10
   private var SPEED: Float = 50f
 
@@ -51,10 +51,10 @@ class Enemy(startX: Float, startY: Float) extends DrawableObject {
   }
 }
 
-object Enemy {
-  private var _allEnemy: ArrayBuffer[Enemy] = ArrayBuffer.empty
+object MeleeEnemy {
+  private var _allEnemy: ArrayBuffer[MeleeEnemy] = ArrayBuffer.empty
 
-  def allEnemy: Array[Enemy] = _allEnemy.toArray
+  def allEnemy: Array[MeleeEnemy] = _allEnemy.toArray
 
   def update(g: GdxGraphics, posHero: Vector2): Unit = {
     for (e <- allEnemy) {
@@ -64,11 +64,11 @@ object Enemy {
   }
 
   def create(position: Vector2): Unit = {
-    val enemy = new Enemy(position.x, position.y)
+    val enemy = new MeleeEnemy(position.x, position.y)
     _allEnemy.addOne(enemy)
   }
 
-  def remove(e: Enemy): Unit = {
+  def remove(e: MeleeEnemy): Unit = {
     val tmp: Int = _allEnemy.indexOf(e)
     _allEnemy.remove(tmp)
   }

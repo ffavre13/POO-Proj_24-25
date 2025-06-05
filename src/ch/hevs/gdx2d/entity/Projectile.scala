@@ -7,17 +7,18 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
+import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
 class Projectile (pos: Vector2, vel: Vector2) extends DrawableObject {
-  private var SPEED = 200f
-  private var RADIUS = 5
+  private var SPEED: Float = 200f
+  private var RADIUS: Float = 5
 
   private var _position = pos
   private var _velocity = vel
-  private var _hitbox: CircleHitbox = CircleHitbox(pos.x,pos.y, RADIUS)
+  private var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(pos.x,pos.y, RADIUS*2, RADIUS*2)
 
-  def hitbox: CircleHitbox = _hitbox
+  def hitbox: Rectangle2D.Float = _hitbox
 
   def position: Vector2 = _position
   def position_= (newPos: Vector2): Unit = {
@@ -35,8 +36,8 @@ class Projectile (pos: Vector2, vel: Vector2) extends DrawableObject {
     new_pos.y = position.y + (velocity.y * SPEED * Gdx.graphics.getDeltaTime)
     position = new_pos
 
-    hitbox.posX = position.x
-    hitbox.posY = position.y
+    hitbox.x = position.x
+    hitbox.y = position.y
   }
   /**
    * Draws the hero sprite
@@ -47,7 +48,8 @@ class Projectile (pos: Vector2, vel: Vector2) extends DrawableObject {
   }
 
   def drawHitbox(g: GdxGraphics): Unit = {
-    hitbox.draw(g)
+    g.drawRectangle(hitbox.getX.toFloat, hitbox.getY.toFloat, hitbox.getHeight.toFloat, hitbox.getWidth.toFloat, 90)
+
   }
 }
 
@@ -70,6 +72,6 @@ object Projectile {
 
   def remove(p: Projectile): Unit = {
     val tmp: Int = _allProjectiles.indexOf(p)
-    _allProjectiles.remove(tmp)
+    if (tmp >= 0) _allProjectiles.remove(tmp)
   }
 }

@@ -1,0 +1,33 @@
+package ch.hevs.gdx2d.entity.enemies
+
+import ch.hevs.gdx2d.entity.Projectile
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
+
+class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean, shootLeft: Boolean, shootRight: Boolean) extends Enemy(posX, posY) {
+  override var life: Int = 1
+  override var speed: Int = 0
+
+  private val SHOOT_COOLDOWN: Float = 1.0f
+  private var dt: Float = 0 // Time used to calculate the cooldown
+
+  override def update(elapsedTime: Float): Unit = {
+    dt = elapsedTime + dt
+    if (dt > SHOOT_COOLDOWN) {
+      shoot(dt)
+      dt = 0
+    }
+  }
+
+  override def draw(g: GdxGraphics): Unit = {
+    g.drawFilledCircle(position.x, position.y, RADIUS, new Color(Color.BLACK))
+  }
+
+  private def shoot(dt: Float): Unit = {
+    if (shootUp) Projectile.create(new Vector2(posX, posY), new Vector2(0, 1))
+    if (shootDown) Projectile.create(new Vector2(posX, posY), new Vector2(0, -1))
+    if (shootLeft) Projectile.create(new Vector2(posX, posY), new Vector2(-1, 0))
+    if (shootRight) Projectile.create(new Vector2(posX, posY), new Vector2(1, 0))
+  }
+}

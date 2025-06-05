@@ -2,19 +2,18 @@ package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.CollisionManager
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.entity.{Enemy, Hero, Projectile}
+import ch.hevs.gdx2d.entity.enemies.{Enemy, MeleeEnemy, ShootingEnemies, TargetPlayerEnemies}
+import ch.hevs.gdx2d.entity.{Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
-import com.badlogic.gdx.Input
+import ch.hevs.gdx2d.utility.GameState
+import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.controllers.Controller
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2
 
 class GameScreen extends PortableApplication(1920, 1080) {
-  var hero: Hero = null
   var dungeon: Dungeon = null
   var ctrl: Controller = null
-  var cam : OrthographicCamera = null
 
   private var drawHitbox: Boolean = false
 
@@ -24,15 +23,9 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon = new Dungeon(16,16, 3)
     dungeon.generate()
 
-    hero = new Hero(getWindowWidth/2, getWindowHeight/2)
-
-
-    for(i <- 0 until 3) {
-      val posEnemy = new Vector2()
-      posEnemy.x = 500 + i*30
-      posEnemy.y = 500 + i*30
-      Enemy.create(posEnemy)
-    }
+    GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
+    Enemy.add(new ShootingEnemies(100, 100, false, false, false, true))
+    Enemy.add(new TargetPlayerEnemies(100, 100))
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
@@ -41,19 +34,15 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.setView(g.getCamera)
     dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.render()
 
-    hero.update(g)
     checkCollision()
-
+    GameState.hero.update(g)
     Projectile.update(g)
-    Enemy.update(g, hero.position)
-
+    Enemy.update(g)
 
     if(drawHitbox) {
       displayHitbox(g)
     }
-
     checkHitbox()
-
 
     g.drawFPS()
   }
@@ -62,34 +51,34 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onKeyDown(keycode: Int): Unit = {
     super.onKeyDown(keycode)
 
-    val vel: Vector2 = hero.velocity
+    val vel: Vector2 = GameState.hero.velocity
     keycode match {
-      case Input.Keys.S  => vel.y += -1
-      case Input.Keys.A  => vel.x += -1
-      case Input.Keys.D => vel.x += 1
-      case Input.Keys.W    => vel.y += 1
-      case Input.Keys.SPACE => hero.shoot()
-      case Input.Keys.UP => hero.turn("UP")
-      case Input.Keys.DOWN => hero.turn("DOWN")
-      case Input.Keys.RIGHT => hero.turn("RIGHT")
-      case Input.Keys.LEFT => hero.turn("LEFT")
-      case Input.Keys.Z => if(drawHitbox) drawHitbox = false else drawHitbox = true
-      case _ => Logger.log(s"Key '$keycode' pressed")
+      case Input.Keys.S     => vel.y += -1
+      case Input.Keys.A     => vel.x += -1
+      case Input.Keys.D     => vel.x += 1
+      case Input.Keys.W     => vel.y += 1
+      case Input.Keys.SPACE => GameState.hero.shoot()
+      case Input.Keys.UP    => GameState.hero.turn("UP")
+      case Input.Keys.DOWN  => GameState.hero.turn("DOWN")
+      case Input.Keys.RIGHT => GameState.hero.turn("RIGHT")
+      case Input.Keys.LEFT  => GameState.hero.turn("LEFT")
+      case Input.Keys.Z     => drawHitbox = !drawHitbox
+      case _                => Logger.log(s"Key '$keycode' pressed")
     }
-    hero.velocity = vel
+    GameState.hero.velocity = vel
   }
 
   override def onKeyUp(keycode: Int): Unit = {
-    var vel: Vector2 = hero.velocity
+    var vel: Vector2 = GameState.hero.velocity
 
     keycode match {
       case Input.Keys.S  => vel.y = 0
       case Input.Keys.A  => vel.x = 0
-      case Input.Keys.D => vel.x = 0
-      case Input.Keys.W    => vel.y = 0
+      case Input.Keys.D  => vel.x = 0
+      case Input.Keys.W  => vel.y = 0
       case _ =>
     }
-    hero.velocity = vel
+    GameState.hero.velocity = vel
   }
 
   // </editor-fold>
@@ -107,13 +96,26 @@ class GameScreen extends PortableApplication(1920, 1080) {
 
   override def onControllerAxisMoved(controller: Controller, axisCode: Int, value: Float): Unit = {
     super.onControllerAxisMoved(controller, axisCode, value)
-    if (axisCode == Xbox.L_STICK_HORIZONTAL_AXIS) hero.velocity.x = value
-    if (axisCode == Xbox.L_STICK_VERTICAL_AXIS) hero.velocity.y = -value
+    if (axisCode == Xbox.L_STICK_HORIZONTAL_AXIS) GameState.hero.velocity.x = value
+    if (axisCode == Xbox.L_STICK_VERTICAL_AXIS) GameState.hero.velocity.y = -value
   }
+
+  override def onControllerKeyUp(controller: Controller, buttonCode: Int): Unit = {
+    super.onControllerKeyUp(controller, buttonCode)
+    buttonCode match {
+      case Xbox.Y => GameState.hero.turn("UP")
+      case Xbox.A => GameState.hero.turn("DOWN")
+      case Xbox.X => GameState.hero.turn("LEFT")
+      case Xbox.B => GameState.hero.turn("RIGHT")
+      case _ =>
+    }
+    GameState.hero.shoot()
+  }
+  // </editor-fold>
 
   def checkHitbox(): Unit = {
     for(p <- Projectile.allProjectiles) {
-      for(e <- Enemy.allEnemy) {
+      for(e <- Enemy.enemies) {
         if(e.hitbox.intersects(p.hitbox)) {
           Projectile.remove(p)
           Enemy.remove(e)
@@ -123,31 +125,31 @@ class GameScreen extends PortableApplication(1920, 1080) {
   }
 
   def displayHitbox(g: GdxGraphics): Unit = {
-    hero.drawHitbox(g)
+    GameState.hero.drawHitbox(g)
   }
 
   def checkCollision(): Unit = {
     for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsDoor) {
       val rectangle = CollisionManager.getRectangle2D(e)
-      if (hero.hitbox.intersects(rectangle)) {
-        dungeon.switchRoom(hero, e)
+      if (GameState.hero.hitbox.intersects(rectangle)) {
+        dungeon.switchRoom(GameState.hero, e)
       }
     }
     for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsWall) {
       val rectangle = CollisionManager.getRectangle2D(e)
-      if (hero.hitbox.intersects(rectangle)) {
+      if (GameState.hero.hitbox.intersects(rectangle)) {
         e.getProperties.get("position") match {
           case "LEFT" =>
-            if (hero.velocity.x < 0) hero.velocity.x = 0
+            if (GameState.hero.velocity.x < 0) GameState.hero.velocity.x = 0
 
           case "RIGHT" =>
-            if (hero.velocity.x > 0) hero.velocity.x = 0
+            if (GameState.hero.velocity.x > 0) GameState.hero.velocity.x = 0
 
           case "DOWN" =>
-            if (hero.velocity.y < 0) hero.velocity.y = 0
+            if (GameState.hero.velocity.y < 0) GameState.hero.velocity.y = 0
 
           case "UP" =>
-            if (hero.velocity.y > 0) hero.velocity.y = 0
+            if (GameState.hero.velocity.y > 0) GameState.hero.velocity.y = 0
 
           case _ =>
         }
