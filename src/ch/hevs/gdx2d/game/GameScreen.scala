@@ -20,7 +20,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
-    dungeon = new Dungeon(16,16, 3)
+    dungeon = new Dungeon(16,16, 40)
     dungeon.generate()
 
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
@@ -100,7 +100,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     if (axisCode == Xbox.L_STICK_VERTICAL_AXIS) GameState.hero.velocity.y = -value
   }
 
-  override def onControllerKeyUp(controller: Controller, buttonCode: Int): Unit = {
+  override def onControllerKeyDown(controller: Controller, buttonCode: Int): Unit = {
     super.onControllerKeyUp(controller, buttonCode)
     buttonCode match {
       case Xbox.Y => GameState.hero.turn("UP")

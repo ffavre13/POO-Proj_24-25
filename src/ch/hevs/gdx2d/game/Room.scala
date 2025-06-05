@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.{MapLayer, MapObject, MapProperties}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 
-class Room(tiledMapLocation: String, enemy: Array[Enemy]) {
+class Room(tiledMapLocation: String, enemy: Array[Enemy], isBossRoom: Boolean = false) {
   var tiledMap = new TmxMapLoader().load(tiledMapLocation)
   var tiledMapRender = new OrthogonalTiledMapRenderer(tiledMap)
 
@@ -39,5 +39,26 @@ class Room(tiledMapLocation: String, enemy: Array[Enemy]) {
     props.put("height",height)
     props.put("direction", direction)
     addDoor(rectangle)
+  }
+
+  def roomIsClear(): Boolean = {
+    if(enemy == null) {
+      true
+    }
+    else {
+      false
+    }
+  }
+}
+
+object Room {
+  var allRoomsFile: Array[String] = Array(
+    "data/maps/voidRoom.tmx",
+    "data/maps/voidRoom02.tmx"
+  )
+
+
+  def getRandomRoom(): Room = {
+    return new Room(allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt),null)
   }
 }

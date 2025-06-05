@@ -3,11 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "data/maps/map.tmx",
+    "activeFile": "data/maps/voidRoom02.tmx",
     "expandedProjectPaths": [
-        "data/tilesets",
+        ".",
         "data/maps",
-        "."
+        "data/tilesets"
     ],
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
@@ -25,8 +25,16 @@
         "C:/Program Files/Tiled/examples/perspective_walls.tsx": {
             "scaleInDock": 1
         },
+        "C:/Users/flori/Downloads/Image3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
         "C:/Users/flori/Downloads/PC Computer - The Binding of Isaac Rebirth - Basement.tsx": {
             "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "C:/Users/flori/Downloads/PC Computer - The Binding of Isaac Rebirth - Necropolis.tsx": {
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "Dungeon_Tileset.tsx": {
@@ -45,12 +53,44 @@
         "data/maps/[64x64] Dungeon Bricks Shadow.tsx": {
             "scaleInDock": 1
         },
-        "data/maps/map.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+        "data/maps/bossRoom.tmx": {
+            "scale": 0.8648958333333333,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1006.060606060606,
-                "y": 156.060606060606
+                "x": 960.2312417198602,
+                "y": 511.62230519089485
+            }
+        },
+        "data/maps/map.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 922.5,
+                "y": 515.5
+            }
+        },
+        "data/maps/spawnRoom.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 820.6666666666667,
+                "y": 664.6666666666666
+            }
+        },
+        "data/maps/voidRoom.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1042,
+                "y": 787.3333333333333
+            }
+        },
+        "data/maps/voidRoom02.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1154,
+                "y": 807.3333333333333
             }
         },
         "data/tilesets/[64x64] Dungeon Bricks Plain.tsx": {
@@ -79,7 +119,7 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/flori/Documents/HES/C_Cours/101-2_Programation-orientee-objets/P_Project/POO-Proj_24-25/data/tilesets",
-    "last.imagePath": "C:/Users/flori/Documents/HES/C_Cours/101-2_Programation-orientee-objets/P_Project/POO-Proj_24-25/data/tilesets",
+    "last.imagePath": "C:/Users/flori/Downloads",
     "map.height": 16,
     "map.lastUsedFormat": "tmx",
     "map.renderOrder": "2",
@@ -87,18 +127,24 @@
     "map.tileWidth": 64,
     "map.width": 30,
     "openFiles": [
-        "data/maps/map.tmx"
+        "data/maps/spawnRoom.tmx",
+        "data/maps/voidRoom.tmx",
+        "data/maps/voidRoom02.tmx"
     ],
     "project": "POO.tiled-project",
     "recentFiles": [
+        "C:/Users/flori/Downloads/PC Computer - The Binding of Isaac Rebirth - Necropolis.tsx",
+        "C:/Users/flori/Downloads/Image3.tsx",
+        "data/maps/spawnRoom.tmx",
+        "data/maps/voidRoom.tmx",
+        "data/maps/voidRoom02.tmx",
         "data/maps/map.tmx",
         "data/tilesets/[64x64] Dungeon Bricks Shadow.tsx",
         "data/tilesets/[64x64] Dungeon Bricks Plain.tsx",
         "map.tmx",
         "C:/Program Files/Tiled/examples/desert.tmx",
         "C:/Users/flori/Downloads/PC Computer - The Binding of Isaac Rebirth - Basement.tsx",
-        "main.tmx",
-        "Dungeon_Tileset.tsx"
+        "main.tmx"
     ],
     "tileset.lastUsedFilter": "Fichiers de jeu de tuiles Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",

@@ -17,13 +17,14 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
   var _currentPosY: Int = height / 2
 
 
-  var doorTexture = new TextureRegion(new Texture("data/images/door.jpg"))
+  var doorTexture = new TextureRegion(new Texture("data/images/door_open_64.png"))
   doorTexture = new TextureRegion(doorTexture, 0, 0, 64, 64)
 
   val doorTile = new StaticTiledMapTile(doorTexture)
 
   val dCell = new TiledMapTileLayer.Cell()
   dCell.setTile(doorTile)
+
 
   def currentPosX: Int = _currentPosX
 
@@ -35,15 +36,21 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
     val startY = height / 2
     val startX = width / 2
     var nbrOfCreatedRoom: Int = 0
-    map(startY)(startX) = new Room("data/maps/map.tmx",null)
+    map(startY)(startX) = new Room("data/maps/spawnRoom.tmx",null)
     nbrOfCreatedRoom += 1
 
     while (nbrOfCreatedRoom != totalRooms) {
       val positions: Array[PositionXY] = possiblePosition(map)
-      val pos: Int = (Math.random() * (positions.length-1)).toInt
-      map(positions(pos).posY)(positions(pos).posX) = new Room("data/maps/map.tmx",null)
+      val pos: Int = (Math.round(Math.random() * (positions.length-1))).toInt
+      if (nbrOfCreatedRoom == totalRooms - 1) {
+        map(positions(pos).posY)(positions(pos).posX) = new Room("data/maps/bossRoom.tmx",null, true)
+      }
+      else {
+        map(positions(pos).posY)(positions(pos).posX) = Room.getRandomRoom()
+      }
       nbrOfCreatedRoom += 1
     }
+
 
     displayConsole(map)
 

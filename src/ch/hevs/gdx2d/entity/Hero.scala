@@ -14,7 +14,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
   private val SHOOT_COOLDOWN : Float = 0.5f
   private val SPRITE_WIDTH: Int = 64
   private val SPRITE_HEIGHT: Int = 64
-  private val SS = new Spritesheet("data/images/test.png", SPRITE_WIDTH, SPRITE_HEIGHT);
+  private val SS = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT);
 
   private var _position: Vector2 = new Vector2(startX, startY)
   private var _velocity: Vector2 = new Vector2(0,0)
