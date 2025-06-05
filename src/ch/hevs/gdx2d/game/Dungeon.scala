@@ -46,7 +46,7 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
         map(positions(pos).posY)(positions(pos).posX) = new Room("data/maps/bossRoom.tmx",null, true)
       }
       else {
-        map(positions(pos).posY)(positions(pos).posX) = Room.getRandomRoom()
+        map(positions(pos).posY)(positions(pos).posX) = Room.getRandomRoom
       }
       nbrOfCreatedRoom += 1
     }
