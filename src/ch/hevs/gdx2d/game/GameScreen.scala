@@ -62,6 +62,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.RIGHT => GameState.hero.turn("RIGHT")
       case Input.Keys.LEFT  => GameState.hero.turn("LEFT")
       case Input.Keys.Z     => drawHitbox = !drawHitbox
+      case Input.Keys.SHIFT_LEFT => GameState.hero.speed *= 2
       case _                => Logger.log(s"Key '$keycode' pressed")
     }
     GameState.hero.velocity = vel
@@ -75,6 +76,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.A  => vel.x = 0
       case Input.Keys.D  => vel.x = 0
       case Input.Keys.W  => vel.y = 0
+      case Input.Keys.SHIFT_LEFT => GameState.hero.speed /= 2
       case _ =>
     }
     GameState.hero.velocity = vel

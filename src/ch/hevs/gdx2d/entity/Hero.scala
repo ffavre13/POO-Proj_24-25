@@ -8,24 +8,28 @@ import com.badlogic.gdx.math.Vector2
 
 import java.awt.geom.Rectangle2D
 
-class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
-  override var _life: Int = 3
-
-  private val SPEED: Float = 200f
+class Hero(startX: Float, startY: Float) extends DrawableObject with Entity{
   private val SHOOT_COOLDOWN : Float = 0.5f
   private val SPRITE_WIDTH: Int = 64
   private val SPRITE_HEIGHT: Int = 64
   private val SS = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT)
 
+  private var _speed: Float = 200f
   private var _position: Vector2 = new Vector2(startX, startY)
   private var _velocity: Vector2 = new Vector2(0,0)
   private var _hitbox: Rectangle2D = new Rectangle2D.Float(startX, startY, SPRITE_WIDTH.toFloat, SPRITE_HEIGHT.toFloat)
+  override var _life: Int = 3
 
   private var _direction: Vector2 = new Vector2(0,1)
   private var textureX: Int = 0
   private var dt_shoot: Float = 0
 
   def hitbox: Rectangle2D = _hitbox
+
+  def speed: Float = _speed
+  def speed_= (newSpeed: Float): Unit = {
+    _speed = newSpeed
+  }
 
   def velocity: Vector2 = _velocity
   def velocity_= (newVelocity: Vector2): Unit = {
@@ -55,8 +59,8 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
   def move(): Unit = {
     val new_pos: Vector2 = new Vector2(0, 0)
     // .getDeltaTime is used so that the character moves at the same speed with any FPS set in the game
-    new_pos.x = position.x + (velocity.x * SPEED * Gdx.graphics.getDeltaTime)
-    new_pos.y = position.y + (velocity.y * SPEED * Gdx.graphics.getDeltaTime)
+    new_pos.x = position.x + (velocity.x * speed * Gdx.graphics.getDeltaTime)
+    new_pos.y = position.y + (velocity.y * speed * Gdx.graphics.getDeltaTime)
     position = new_pos
   }
 

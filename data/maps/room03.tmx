@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-down" width="30" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="41">
+ <tileset firstgid="1" source="../tilesets/[64x64] Dungeon Bricks Shadow.tsx"/>
+ <tileset firstgid="57" source="../tilesets/[64x64] Dungeon Bricks Plain.tsx"/>
+ <tileset firstgid="113" source="../tilesets/tileset.tsx"/>
+ <layer id="1" name="map" width="30" height="16">
+  <data encoding="csv">
+255,256,256,256,257,257,256,256,256,257,257,257,256,256,256,257,257,256,257,257,256,256,257,256,256,257,256,256,257,258,
+295,219,222,221,220,221,220,240,222,221,241,201,261,219,240,261,240,220,202,242,202,222,200,242,221,220,201,202,260,298,
+295,201,239,200,259,241,201,220,221,202,220,259,202,241,199,219,259,242,261,242,220,239,261,261,201,200,201,262,200,278,
+295,242,199,261,200,239,219,219,219,222,242,200,259,221,259,199,260,261,242,221,260,242,262,221,239,242,262,261,219,278,
+295,397,397,397,397,397,397,397,397,397,397,397,397,397,200,240,260,397,397,397,397,397,397,397,397,397,397,397,397,278,
+275,397,397,397,397,397,397,397,397,397,397,397,397,397,220,241,222,397,397,397,397,397,397,397,397,397,397,397,397,298,
+295,397,397,397,397,397,397,397,397,397,397,397,397,397,260,222,261,397,397,397,397,397,397,397,397,397,397,397,397,278,
+295,201,260,242,261,220,201,239,219,241,239,219,240,199,260,240,200,262,220,261,239,239,262,240,202,259,219,200,262,298,
+275,261,240,222,261,259,259,262,200,222,262,202,200,221,200,262,262,202,261,241,200,262,241,240,199,202,239,239,202,298,
+295,261,239,240,220,221,240,220,239,199,261,219,262,200,200,200,262,222,221,239,219,201,241,262,200,261,241,199,262,298,
+275,397,397,397,397,397,397,397,397,397,397,397,397,397,219,259,199,397,397,397,397,397,397,397,397,397,397,397,397,298,
+275,397,397,397,397,397,397,397,397,397,397,397,397,397,262,260,260,397,397,397,397,397,397,397,397,397,397,397,397,298,
+295,242,219,239,239,260,242,240,261,222,260,259,239,222,219,221,241,242,260,219,221,219,259,199,201,241,259,222,240,298,
+275,202,221,242,262,261,242,220,199,261,242,219,259,260,240,262,262,222,260,222,200,202,262,262,221,240,201,200,220,298,
+295,219,199,202,260,202,222,261,222,220,242,240,199,201,200,259,220,220,239,199,239,200,221,261,200,239,219,239,239,278,
+315,316,316,316,316,316,316,317,317,317,316,316,317,316,316,316,317,316,317,316,316,317,317,316,317,316,317,317,317,318
+</data>
+ </layer>
+ <objectgroup id="2" name="collision">
+  <object id="2" x="0" y="0" width="1920" height="64">
+   <properties>
+    <property name="position" value="UP"/>
+   </properties>
+  </object>
+  <object id="3" x="1856" y="0" width="64" height="1024">
+   <properties>
+    <property name="position" value="RIGHT"/>
+   </properties>
+  </object>
+  <object id="4" x="0" y="960" width="1920" height="64">
+   <properties>
+    <property name="position" value="DOWN"/>
+   </properties>
+  </object>
+  <object id="10" x="0" y="0" width="64" height="1024">
+   <properties>
+    <property name="position" value="LEFT"/>
+   </properties>
+  </object>
+  <object id="32" x="64.1361" y="257.208" width="816.474" height="189.89">
+   <properties>
+    <property name="position" value="UP"/>
+   </properties>
+  </object>
+  <object id="34" x="1100.18" y="256.641" width="754.095" height="189.89">
+   <properties>
+    <property name="position" value="UP"/>
+   </properties>
+  </object>
+  <object id="35" x="1101.31" y="638.849" width="752.961" height="129.78">
+   <properties>
+    <property name="position" value="UP"/>
+   </properties>
+  </object>
+  <object id="36" x="65.8374" y="638.282" width="818.742" height="129.78">
+   <properties>
+    <property name="position" value="UP"/>
+   </properties>
+  </object>
+  <object id="37" x="829.953" y="263.758" width="64" height="176.791">
+   <properties>
+    <property name="position" value="LEFT"/>
+   </properties>
+  </object>
+  <object id="38" x="1089.67" y="264.325" width="64" height="176.791">
+   <properties>
+    <property name="position" value="LEFT"/>
+   </properties>
+  </object>
+  <object id="39" x="833.355" y="646.533" width="64" height="116.681">
+   <properties>
+    <property name="position" value="LEFT"/>
+   </properties>
+  </object>
+  <object id="40" x="1090.81" y="645.966" width="64" height="116.681">
+   <properties>
+    <property name="position" value="LEFT"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="door_collision" locked="1"/>
+</map>

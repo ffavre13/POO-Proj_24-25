@@ -52,13 +52,18 @@ class Room(tiledMapLocation: String, enemy: Array[Enemy], isBossRoom: Boolean = 
 }
 
 object Room {
-  var allRoomsFile: Array[String] = Array(
-    "data/maps/voidRoom.tmx",
-    "data/maps/voidRoom02.tmx"
+  var allRoomsFile: Array[(String, Array[Enemy])] = Array(
+    ("data/maps/room01.tmx", null),
+    ("data/maps/room02.tmx", null),
+    ("data/maps/room03.tmx", null),
+    ("data/maps/room04.tmx", null),
+    ("data/maps/room05.tmx", null),
+    ("data/maps/room06.tmx", null)
   )
 
 
   def getRandomRoom: Room = {
-    return new Room(allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt),null)
+    val roomInfo: (String, Array[Enemy]) = allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt)
+    new Room(roomInfo._1,roomInfo._2)
   }
 }
