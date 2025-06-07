@@ -35,3 +35,6 @@ doc/
 
 # IntelliJ
 .idea/misc.xml
+
+# Tiled
+POO.tiled-session
