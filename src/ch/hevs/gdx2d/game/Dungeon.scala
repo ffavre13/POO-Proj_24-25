@@ -1,6 +1,7 @@
 package ch.hevs.gdx2d.game
-import ch.hevs.gdx2d.entity.Hero
-import ch.hevs.gdx2d.utility.PositionXY
+import ch.hevs.gdx2d.entity.{Hero, Projectile}
+import ch.hevs.gdx2d.entity.enemies.Enemy
+import ch.hevs.gdx2d.utility.{GameState, PositionXY}
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.maps.MapObject
@@ -128,6 +129,9 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
     val roomWidth = room.tiledLayer.getWidth
     val roomHeight = room.tiledLayer.getHeight
 
+    Enemy.removeAll()
+    Projectile.removeAll()
+
     direction match {
       case "LEFT" => {
         _currentPosX -= 1
@@ -146,6 +150,14 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
         hero.position.y = (roomHeight - 2) * 64 - 10
       }
       case _ => println("wrong direction")
+    }
+
+    GameState.room = map(currentPosY)(currentPosX)
+
+    if(map(currentPosY)(currentPosX).enemys != null) {
+      for(e <- map(currentPosY)(currentPosX).enemys) {
+        Enemy.add(e)
+      }
     }
   }
 }

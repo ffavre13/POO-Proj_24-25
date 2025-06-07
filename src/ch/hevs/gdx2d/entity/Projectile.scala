@@ -86,4 +86,6 @@ object Projectile {
     val tmp: Int = _projectiles.indexOf(p)
     if (tmp >= 0) _projectiles.remove(tmp)
   }
+
+  def removeAll(): Unit = _projectiles.clear()
 }

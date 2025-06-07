@@ -24,8 +24,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon.generate()
 
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
-    Enemy.add(new ShootingEnemies(100, 100, false, false, false, true))
-    Enemy.add(new TargetPlayerEnemies(200, 200))
+    GameState.room = dungeon.map(dungeon.currentPosY)(dungeon.currentPosX)
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
@@ -42,6 +41,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     if(drawHitbox) {
       displayHitbox(g)
     }
+
     CollisionManager.checkHitbox()
     UserInterface.drawUI(g)
     g.drawFPS()
@@ -121,12 +121,14 @@ class GameScreen extends PortableApplication(1920, 1080) {
   }
 
   def checkCollision(): Unit = {
+
     for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsDoor) {
       val rectangle = CollisionManager.getRectangle2D(e)
       if (GameState.hero.hitbox.intersects(rectangle)) {
         dungeon.switchRoom(GameState.hero, e)
       }
     }
+
     for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsWall) {
       val rectangle = CollisionManager.getRectangle2D(e)
       if (GameState.hero.hitbox.intersects(rectangle)) {

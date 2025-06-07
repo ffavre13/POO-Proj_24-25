@@ -1,9 +1,11 @@
 package ch.hevs.gdx2d.entity.enemies
 
 import ch.hevs.gdx2d.entity.Entity
+import ch.hevs.gdx2d.entity.enemies.Enemy.remove
 import ch.hevs.gdx2d.hitbox.CircleHitbox
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
+import ch.hevs.gdx2d.utility.GameState
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
@@ -43,6 +45,8 @@ abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entit
   override def draw(g: GdxGraphics): Unit
 
   override def ko(): Unit = {
+    val index: Int = GameState.room.enemys.indexOf(this.asInstanceOf[Enemy])
+    GameState.room.enemys.remove(index)
     Enemy.remove(this.asInstanceOf[Enemy])
   }
 }
@@ -83,4 +87,6 @@ object Enemy {
    * @param enemy Enemy to remove
    */
   def remove(enemy: Enemy): Unit = _enemies.remove(_enemies.indexOf(enemy))
+
+  def removeAll(): Unit = _enemies.clear()
 }

@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.utility.CollisionManager
-import ch.hevs.gdx2d.entity.enemies.Enemy
+import ch.hevs.gdx2d.entity.enemies.{Enemy, ShootingEnemies}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.maps.objects.RectangleMapObject
@@ -9,19 +9,23 @@ import com.badlogic.gdx.maps.{MapLayer, MapObject, MapProperties}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 
-class Room(tiledMapLocation: String, enemy: Array[Enemy], isBossRoom: Boolean = false) {
+import scala.collection.mutable.ArrayBuffer
+
+class Room(tiledMapLocation: String, enemy: ArrayBuffer[Enemy], isBossRoom: Boolean = false) {
   var tiledMap = new TmxMapLoader().load(tiledMapLocation)
   var tiledMapRender = new OrthogonalTiledMapRenderer(tiledMap)
 
   var tiledLayer: TiledMapTileLayer = tiledMap.getLayers.get("map").asInstanceOf[TiledMapTileLayer]
   private var objectLayerWall: MapLayer = tiledMap.getLayers.get("collision")
-  private var objectLayerDoor: MapLayer = tiledMap.getLayers.get("door_collision").asInstanceOf[MapLayer]
+  private var objectLayerDoor: MapLayer = tiledMap.getLayers.get("door_collision")
 
   var collisionsWall: Array[MapObject] = CollisionManager.getCollisions(objectLayerWall)
   var rectangleCollisionsWall = CollisionManager.getRectangles2D(collisionsWall)
 
   var collisionsDoor: Array[MapObject] = CollisionManager.getCollisions(objectLayerDoor)
   var rectangleCollisionsDoor = CollisionManager.getRectangles2D(collisionsDoor)
+
+  var enemys: ArrayBuffer[Enemy] = enemy
 
   def addDoor(door: RectangleMapObject): Unit = {
     objectLayerDoor.getObjects.add(door)
@@ -52,18 +56,16 @@ class Room(tiledMapLocation: String, enemy: Array[Enemy], isBossRoom: Boolean = 
 }
 
 object Room {
-  var allRoomsFile: Array[(String, Array[Enemy])] = Array(
-    ("data/maps/room01.tmx", null),
-    ("data/maps/room02.tmx", null),
-    ("data/maps/room03.tmx", null),
-    ("data/maps/room04.tmx", null),
-    ("data/maps/room05.tmx", null),
-    ("data/maps/room06.tmx", null)
+  var allRoomsFile: Array[(String, ArrayBuffer[Enemy])] = Array(
+    ("data/maps/room01.tmx", ArrayBuffer(new ShootingEnemies(100,100,true, true, true, true))),
+    ("data/maps/room02.tmx", ArrayBuffer(new ShootingEnemies(100,100,true, true, true, true))),
+    ("data/maps/room03.tmx", ArrayBuffer(new ShootingEnemies(100,100,true, true, true, true))),
+    ("data/maps/room04.tmx", ArrayBuffer(new ShootingEnemies(100,100,true, true, true, true)))
   )
 
 
   def getRandomRoom: Room = {
-    val roomInfo: (String, Array[Enemy]) = allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt)
+    val roomInfo: (String, ArrayBuffer[Enemy]) = allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt)
     new Room(roomInfo._1,roomInfo._2)
   }
 }
