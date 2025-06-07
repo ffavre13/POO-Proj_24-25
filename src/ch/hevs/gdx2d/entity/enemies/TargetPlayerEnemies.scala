@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 class TargetPlayerEnemies(posX: Int, posY: Int) extends Enemy(posX, posY) {
-  override var life: Int = 1
-  override var speed: Int = 100
+  override var _life: Int = 1
+  var speed: Int = 100
 
   private var _velocity: Vector2 = new Vector2(0, 0)
 
@@ -33,8 +33,5 @@ class TargetPlayerEnemies(posX: Int, posY: Int) extends Enemy(posX, posY) {
     new_pos.x = position.x + (_velocity.x * speed * Gdx.graphics.getDeltaTime)
     new_pos.y = position.y + (_velocity.y * speed * Gdx.graphics.getDeltaTime)
     position = new_pos
-
-//    hitbox.posX = position.x
-//    hitbox.posY = position.y
   }
 }

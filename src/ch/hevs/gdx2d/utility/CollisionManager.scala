@@ -44,16 +44,15 @@ object CollisionManager{
         for(e <- Enemy.enemies) {
           if(e.hitbox.intersects(p.hitbox)) {
             Projectile.remove(p)
-            Enemy.remove(e)
+            e.takeDamage(1)
           }
         }
-      }
-      else if (p.owner == "ENEMY") {
+      } else if (p.owner == "ENEMY") {
         if (p.hitbox.intersects(GameState.hero.hitbox)) {
-          println("PLAYER HAS BEEN HIT")
+          Projectile.remove(p)
+          GameState.hero.takeDamage(1)
         }
       }
-
     }
 
   }

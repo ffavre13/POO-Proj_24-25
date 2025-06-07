@@ -8,7 +8,9 @@ import com.badlogic.gdx.math.Vector2
 
 import java.awt.geom.Rectangle2D
 
-class Hero(startX: Float, startY: Float) extends DrawableObject {
+class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
+  override var _life: Int = 3
+
   private val SPEED: Float = 200f
   private val SHOOT_COOLDOWN : Float = 0.5f
   private val SPRITE_WIDTH: Int = 64
@@ -109,5 +111,15 @@ class Hero(startX: Float, startY: Float) extends DrawableObject {
       Projectile.create(projPos, projVel, "HERO")
       dt_shoot = 0
     }
+  }
+
+  override def takeDamage(amount: Int): Unit = {
+    super.takeDamage(amount)
+    println(s"Hero took damage ! (HP : $life)")
+  }
+
+  override def ko(): Unit = {
+    println(s"Hero is KO ! (HP : $life)")
+    System.exit(0)
   }
 }

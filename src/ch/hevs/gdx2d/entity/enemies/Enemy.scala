@@ -41,6 +41,10 @@ abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entit
    * @param g GdxGraphics object
    */
   override def draw(g: GdxGraphics): Unit
+
+  override def ko(): Unit = {
+    Enemy.remove(this.asInstanceOf[Enemy])
+  }
 }
 
 /**

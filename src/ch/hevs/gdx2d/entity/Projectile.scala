@@ -11,13 +11,16 @@ import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
 class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObject {
-  private val SPEED: Float = 200f
+  private val SPEED: Float = 300f
   private val RADIUS: Float = 5
 
   private var _position = pos
   private var _velocity = vel
-  private var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(pos.x,pos.y, RADIUS*2, RADIUS*2)
-  private var _owner = own // "HERO" to deal damage to enemies or "ENEMY" to deal damage to the player
+  private val _hitbox: Rectangle2D.Float = new Rectangle2D.Float(pos.x,pos.y, RADIUS*2, RADIUS*2)
+  private val _owner = own // "HERO" to deal damage to enemies or "ENEMY" to deal damage to the player
+
+  private val HERO_COLOR: Color   = Color.BLUE
+  private val ENEMY_COLOR: Color  = Color.RED
 
   def hitbox: Rectangle2D.Float = _hitbox
   def owner: String = _owner
@@ -46,7 +49,11 @@ class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObjec
    * @param g GdxGraphics object
    */
   override def draw(g: GdxGraphics): Unit = {
-    g.drawFilledCircle(position.x, position.y, RADIUS, new Color(Color.BLUE))
+    var color: Color = Color.GOLD
+    if (_owner == "HERO") color = HERO_COLOR
+    else color = ENEMY_COLOR
+
+    g.drawFilledCircle(position.x, position.y, RADIUS, color)
   }
 
   def drawHitbox(g: GdxGraphics): Unit = {
