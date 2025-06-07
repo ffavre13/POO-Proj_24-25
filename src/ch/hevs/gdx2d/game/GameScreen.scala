@@ -43,6 +43,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
       displayHitbox(g)
     }
     CollisionManager.checkHitbox()
+    UserInterface.drawUI(g)
     g.drawFPS()
   }
 

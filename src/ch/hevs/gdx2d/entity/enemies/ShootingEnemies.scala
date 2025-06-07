@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean, shootLeft: Boolean, shootRight: Boolean) extends Enemy(posX, posY) {
-  override var _life: Int = 1
+  override var _hp: Int = 1
 
   private val SHOOT_COOLDOWN: Float = 1.0f
   private var dt: Float = 0 // Time used to calculate the cooldown

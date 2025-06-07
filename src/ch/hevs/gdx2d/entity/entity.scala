@@ -1,17 +1,18 @@
 package ch.hevs.gdx2d.entity
 
 trait Entity {
-  protected var _life: Int
+  protected var _hp: Int
 
-  def life: Int = _life
+  def hp: Int = _hp
 
   /**
-   * Decrements the life of the player
+   * Decrements the HP of the entity
    * @param amount Amount of HP to remove
    */
   def takeDamage(amount: Int): Unit = {
-    _life -= amount
-    if (_life <= 0) ko()
+
+    _hp -= amount
+    if (_hp <= 0) ko()
   }
 
   def ko(): Unit

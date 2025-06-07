@@ -8,23 +8,26 @@ import com.badlogic.gdx.math.Vector2
 
 import java.awt.geom.Rectangle2D
 
-class Hero(startX: Float, startY: Float) extends DrawableObject with Entity{
+class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
   private val SHOOT_COOLDOWN : Float = 0.5f
   private val SPRITE_WIDTH: Int = 64
   private val SPRITE_HEIGHT: Int = 64
   private val SS = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT)
 
+  override var _hp: Int = 3
+  private val _totalHP: Int = _hp
   private var _speed: Float = 200f
   private var _position: Vector2 = new Vector2(startX, startY)
   private var _velocity: Vector2 = new Vector2(0,0)
   private var _hitbox: Rectangle2D = new Rectangle2D.Float(startX, startY, SPRITE_WIDTH.toFloat, SPRITE_HEIGHT.toFloat)
-  override var _life: Int = 3
 
   private var _direction: Vector2 = new Vector2(0,1)
   private var textureX: Int = 0
   private var dt_shoot: Float = 0
 
   def hitbox: Rectangle2D = _hitbox
+
+  def totalHP: Int = _totalHP
 
   def speed: Float = _speed
   def speed_= (newSpeed: Float): Unit = {
@@ -119,11 +122,11 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity{
 
   override def takeDamage(amount: Int): Unit = {
     super.takeDamage(amount)
-    println(s"Hero took damage ! (HP : $life)")
+    println(s"Hero took damage ! (HP : $hp)")
   }
 
   override def ko(): Unit = {
-    println(s"Hero is KO ! (HP : $life)")
+    println(s"Hero is KO ! (HP : $hp)")
     System.exit(0)
   }
 }

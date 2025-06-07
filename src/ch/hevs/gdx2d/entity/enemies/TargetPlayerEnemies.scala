@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 class TargetPlayerEnemies(posX: Int, posY: Int) extends Enemy(posX, posY) {
-  override var _life: Int = 1
+  override var _hp: Int = 1
   var speed: Int = 100
 
   private var _velocity: Vector2 = new Vector2(0, 0)
