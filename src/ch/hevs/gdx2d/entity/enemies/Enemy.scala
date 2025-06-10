@@ -36,6 +36,8 @@ abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entit
   def update(elapsedTime: Float): Unit = {
     _hitbox.x = _position.x
     _hitbox.y = _position.y
+    _hitbox.width = SPRITE_WIDTH
+    _hitbox.height = SPRITE_HEIGHT
   }
 
   /**
@@ -73,7 +75,7 @@ object Enemy {
 
   def displayHitboxes(g: GdxGraphics): Unit = {
     for (e <- _enemies)
-      g.drawRectangle(e.hitbox.getX.toFloat, e.hitbox.getY.toFloat, e.hitbox.getWidth.toFloat, e.hitbox.getHeight.toFloat, 90)
+      g.drawRectangle(e.hitbox.getX.toFloat, e.hitbox.getY.toFloat, e.hitbox.getWidth.toFloat, e.hitbox.getHeight.toFloat, 0)
   }
 
   /**

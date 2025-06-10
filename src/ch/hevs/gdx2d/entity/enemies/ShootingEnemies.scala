@@ -21,7 +21,7 @@ class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean
   }
 
   override def draw(g: GdxGraphics): Unit = {
-    g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, new Color(Color.BLACK))
+    g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, Color.BLACK)
   }
 
   private def shoot(dt: Float): Unit = {

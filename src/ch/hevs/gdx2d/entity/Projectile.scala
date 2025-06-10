@@ -1,6 +1,5 @@
 package ch.hevs.gdx2d.entity
 
-import ch.hevs.gdx2d.hitbox.CircleHitbox
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import com.badlogic.gdx.Gdx
@@ -58,7 +57,6 @@ class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObjec
 
   def drawHitbox(g: GdxGraphics): Unit = {
     g.drawRectangle(hitbox.getX.toFloat, hitbox.getY.toFloat, hitbox.getHeight.toFloat, hitbox.getWidth.toFloat, 90)
-
   }
 }
 
@@ -77,8 +75,13 @@ object Projectile {
     }
   }
 
+  def displayHitboxes(g: GdxGraphics): Unit = {
+    for (p <- _projectiles)
+      g.drawRectangle(p.hitbox.getX.toFloat, p.hitbox.getY.toFloat, p.hitbox.getWidth.toFloat, p.hitbox.getHeight.toFloat, 0)
+  }
+
   def create(position: Vector2, velocity: Vector2, owner: String): Unit = {
-    val projectile = new Projectile(position, velocity, owner)
+    val projectile = new Projectile(position, new Vector2(velocity.x, velocity.y), owner)
     _projectiles.addOne(projectile)
   }
 

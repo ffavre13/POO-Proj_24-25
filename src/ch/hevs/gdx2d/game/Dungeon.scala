@@ -1,6 +1,6 @@
 package ch.hevs.gdx2d.game
 import ch.hevs.gdx2d.entity.{Hero, Projectile}
-import ch.hevs.gdx2d.entity.enemies.Enemy
+import ch.hevs.gdx2d.entity.enemies.{Boss, Enemy}
 import ch.hevs.gdx2d.utility.{GameState, PositionXY}
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -44,7 +44,7 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
       val positions: Array[PositionXY] = possiblePosition(map)
       val pos: Int = (Math.round(Math.random() * (positions.length-1))).toInt
       if (nbrOfCreatedRoom == totalRooms - 1) {
-        map(positions(pos).posY)(positions(pos).posX) = new Room("data/maps/bossRoom.tmx",null, true)
+        map(positions(pos).posY)(positions(pos).posX) = new Room("data/maps/bossRoom.tmx",ArrayBuffer[Enemy](new Boss(200, 200)), true)
       }
       else {
         map(positions(pos).posY)(positions(pos).posX) = Room.getRandomRoom
