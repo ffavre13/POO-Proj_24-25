@@ -20,7 +20,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
-    dungeon = new Dungeon(16,16, 40)
+    dungeon = new Dungeon(16,16, 10)
     dungeon.generate()
 
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
