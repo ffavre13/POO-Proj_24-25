@@ -20,6 +20,9 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
+    Enemy.removeAll()
+    Projectile.removeAll()
+
     dungeon = new Dungeon(16,16, 10)
     dungeon.generate()
 
@@ -63,6 +66,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.RIGHT => GameState.hero.turn("RIGHT")
       case Input.Keys.LEFT  => GameState.hero.turn("LEFT")
       case Input.Keys.Z     => drawHitbox = !drawHitbox
+      case Input.Keys.R     => onInit()
       case Input.Keys.SHIFT_LEFT => GameState.hero.speed *= 2
       case _                => Logger.log(s"Key '$keycode' pressed")
     }

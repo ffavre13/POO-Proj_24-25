@@ -13,7 +13,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
   private val SHOOT_COOLDOWN : Float = 0.5f
   private val SPRITE_WIDTH: Int = 64
   private val SPRITE_HEIGHT: Int = 64
-  private val SS = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT)
+  private val SS = new Spritesheet("data/images/walk.png", SPRITE_WIDTH, SPRITE_HEIGHT)
 
   override var _hp: Int = 3
   private val _totalHP: Int = _hp
@@ -73,17 +73,17 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
       case "UP" => {
         direction.x = 0
         direction.y = 1
-        textureX = 3
+        textureX = 0
       }
       case "DOWN" => {
         direction.x = 0
         direction.y = -1
-        textureX = 0
+        textureX = 2
       }
       case "RIGHT" => {
         direction.x = 1
         direction.y = 0
-        textureX = 2
+        textureX = 3
       }
       case "LEFT" => {
         direction.x = -1
@@ -99,7 +99,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
    * @param g GdxGraphics object
    */
   def draw(g: GdxGraphics): Unit = {
-    g.draw(SS.sprites(textureX)(0), position.x, position.y)
+    g.draw(SS.sprites(textureX)(0), position.x - 17, position.y - 10, 100, 100)
   }
 
   def drawHitbox(g: GdxGraphics): Unit = {

@@ -2,10 +2,8 @@ package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.utility.CollisionManager
 import ch.hevs.gdx2d.entity.enemies.{Enemy, ShootingEnemies}
-import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.maps.objects.RectangleMapObject
-import com.badlogic.gdx.maps.{MapLayer, MapObject, MapProperties}
+import com.badlogic.gdx.maps.{MapLayer, MapObject}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 
@@ -75,8 +73,8 @@ object Room {
       new ShootingEnemies(1056,608,true, true, false, false),
       new ShootingEnemies(1184,416,true, true, true, true),
       new ShootingEnemies(1312,608,true, true, true, true),
-      new ShootingEnemies(1440,416,true, true, false, false),
-      new ShootingEnemies(1568,608,true, true, false, false))),
+      new ShootingEnemies(1440,416,true, true, false, false)
+    )),
     ("data/maps/room03.tmx", ArrayBuffer(
       new ShootingEnemies(160,160,true, true, true, true),
       new ShootingEnemies(1790,160,true, true, true, true),

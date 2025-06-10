@@ -20,7 +20,7 @@ abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entit
   protected val SPRITE_HEIGHT: Int = 64
 
   protected var _position: Vector2 = new Vector2(startX, startY)
-  protected var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(startX , startY, SPRITE_WIDTH, SPRITE_HEIGHT)
+  protected var _hitbox: Rectangle2D.Float = new Rectangle2D.Float(startX - SPRITE_WIDTH/2, startY - SPRITE_HEIGHT/2, SPRITE_WIDTH, SPRITE_HEIGHT)
 
   def position: Vector2 = _position
   def position_= (newPos: Vector2): Unit = _position = newPos
@@ -32,8 +32,8 @@ abstract class Enemy(startX: Int, startY: Int) extends DrawableObject with Entit
    * @param elapsedTime Time elapsed between two frames
    */
   def update(elapsedTime: Float): Unit = {
-    _hitbox.x = _position.x
-    _hitbox.y = _position.y
+    _hitbox.x = _position.x - SPRITE_WIDTH/2
+    _hitbox.y = _position.y - SPRITE_HEIGHT/2
     _hitbox.width = SPRITE_WIDTH
     _hitbox.height = SPRITE_HEIGHT
   }
@@ -73,7 +73,7 @@ object Enemy {
 
   def displayHitboxes(g: GdxGraphics): Unit = {
     for (e <- _enemies)
-      g.drawRectangle(e.hitbox.getX.toFloat, e.hitbox.getY.toFloat, e.hitbox.getWidth.toFloat, e.hitbox.getHeight.toFloat, 0)
+      g.drawRectangle(e.hitbox.getX.toFloat + e.SPRITE_WIDTH/2, e.hitbox.getY.toFloat + e.SPRITE_HEIGHT/2, e.hitbox.getWidth.toFloat, e.hitbox.getHeight.toFloat, 0)
   }
 
   /**
