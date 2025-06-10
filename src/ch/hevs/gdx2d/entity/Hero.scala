@@ -3,6 +3,7 @@ package ch.hevs.gdx2d.entity
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
+import ch.hevs.gdx2d.utility.AudioManager
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
@@ -107,6 +108,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
 
   def shoot(): Unit = {
     if (dt_shoot > SHOOT_COOLDOWN) {
+      AudioManager.shoot()
       val projVel = new Vector2()
       projVel.x = direction.x
       projVel.y = direction.y
@@ -122,6 +124,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
 
   override def takeDamage(amount: Int): Unit = {
     super.takeDamage(amount)
+    AudioManager.damage()
     println(s"Hero took damage ! (HP : $hp)")
   }
 

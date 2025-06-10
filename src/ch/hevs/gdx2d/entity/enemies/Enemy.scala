@@ -1,8 +1,6 @@
 package ch.hevs.gdx2d.entity.enemies
 
 import ch.hevs.gdx2d.entity.Entity
-import ch.hevs.gdx2d.entity.enemies.Enemy.remove
-import ch.hevs.gdx2d.hitbox.CircleHitbox
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import ch.hevs.gdx2d.utility.GameState

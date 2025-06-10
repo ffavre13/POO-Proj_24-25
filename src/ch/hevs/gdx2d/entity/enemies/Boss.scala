@@ -1,11 +1,13 @@
 package ch.hevs.gdx2d.entity.enemies
 
 import ch.hevs.gdx2d.entity.Projectile
+import ch.hevs.gdx2d.game.UserInterface
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.utility.GameState
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+
 import scala.util.Random
 
 /**
@@ -51,6 +53,7 @@ class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, 
 
   override def draw(g: GdxGraphics): Unit = {
     g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, Color.RED)
+    UserInterface.drawBossHealth(g, _hp)
   }
 
   /**

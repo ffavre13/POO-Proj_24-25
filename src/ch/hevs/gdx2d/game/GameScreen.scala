@@ -2,7 +2,7 @@ package ch.hevs.gdx2d.game
 
 import ch.hevs.gdx2d.utility.CollisionManager
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.entity.enemies.{Enemy, MeleeEnemy, ShootingEnemies, TargetPlayerEnemies}
+import ch.hevs.gdx2d.entity.enemies.{Enemy, ShootingEnemies, TargetPlayerEnemies}
 import ch.hevs.gdx2d.entity.{Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger

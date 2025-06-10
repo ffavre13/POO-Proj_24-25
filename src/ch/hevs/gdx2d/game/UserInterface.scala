@@ -3,6 +3,7 @@ package ch.hevs.gdx2d.game
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.utility.GameState
+import com.badlogic.gdx.utils.Align
 
 object UserInterface {
   private val HP_SIZE: Int = 64
@@ -10,6 +11,10 @@ object UserInterface {
 
   def drawUI(g: GdxGraphics): Unit = {
     drawHealth(g, GameState.hero._hp)
+  }
+
+  def drawBossHealth(g: GdxGraphics, hp: Int): Unit = {
+    g.drawString(g.getScreenWidth, g.getScreenHeight, s"Boss: $hp HP", Align.right)
   }
 
   private def drawHealth(g: GdxGraphics, hp: Int): Unit = {
