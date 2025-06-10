@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
 class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObject {
-  private val SPEED: Float = 300f
+  private val SPEED: Float = 400f
   private val RADIUS: Float = 5
 
   private var _position = pos

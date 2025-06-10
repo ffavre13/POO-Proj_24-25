@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
+import com.badlogic.gdx.math.Vector2
 
 import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
@@ -44,7 +45,17 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
       val positions: Array[PositionXY] = possiblePosition(map)
       val pos: Int = (Math.round(Math.random() * (positions.length-1))).toInt
       if (nbrOfCreatedRoom == totalRooms - 1) {
-        map(positions(pos).posY)(positions(pos).posX) = new Room("data/maps/bossRoom.tmx",ArrayBuffer[Enemy](new Boss(200, 200)), true)
+        map(positions(pos).posY)(positions(pos).posX) = new Room(
+          "data/maps/bossRoom.tmx",
+          ArrayBuffer[Enemy](new Boss(200, 200, Array(
+            new Vector2(200, 300),
+            new Vector2(1000, 600),
+            new Vector2(750, 800),
+            new Vector2(500, 800),
+            new Vector2(1250, 200),
+          ))),
+          true
+        )
       }
       else {
         map(positions(pos).posY)(positions(pos).posX) = Room.getRandomRoom
