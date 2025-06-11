@@ -3,7 +3,7 @@ package ch.hevs.gdx2d.entity.enemies
 import ch.hevs.gdx2d.entity.Projectile
 import ch.hevs.gdx2d.game.UserInterface
 import ch.hevs.gdx2d.lib.GdxGraphics
-import ch.hevs.gdx2d.utility.GameState
+import ch.hevs.gdx2d.utility.{AudioManager, GameState}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
@@ -17,7 +17,7 @@ import scala.util.Random
  * @param positions Array containing the positions where the boss will move
  */
 class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, posY) {
-  override var _hp: Int = 20
+  override var _hp: Int = 10
   override val SPRITE_WIDTH: Int = 128
   override val SPRITE_HEIGHT: Int = 128
 
@@ -54,6 +54,11 @@ class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, 
   override def draw(g: GdxGraphics): Unit = {
     g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, Color.RED)
     UserInterface.drawBossHealth(g, _hp)
+  }
+
+  override def ko(): Unit = {
+    AudioManager.win()
+    super.ko()
   }
 
   /**

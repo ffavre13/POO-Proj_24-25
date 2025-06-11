@@ -1,12 +1,11 @@
 package ch.hevs.gdx2d.game
 
-import ch.hevs.gdx2d.utility.CollisionManager
+import ch.hevs.gdx2d.utility.{AudioManager, CollisionManager, GameState}
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
 import ch.hevs.gdx2d.entity.enemies.{Enemy, ShootingEnemies, TargetPlayerEnemies}
 import ch.hevs.gdx2d.entity.{Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
-import ch.hevs.gdx2d.utility.GameState
 import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.controllers.Controller
 import com.badlogic.gdx.math.Vector2
@@ -15,21 +14,28 @@ class GameScreen extends PortableApplication(1920, 1080) {
   var dungeon: Dungeon = null
   var ctrl: Controller = null
 
+  // Tells if the hitboxes should be displayed to the player
   private var drawHitbox: Boolean = false
 
+  /** Initializes the game. */
   override def onInit(): Unit = {
     setTitle("The binding of Isaac")
 
     Enemy.removeAll()
     Projectile.removeAll()
 
-    dungeon = new Dungeon(16,16, 10)
+    dungeon = new Dungeon(16,16, 4)
     dungeon.generate()
 
+    AudioManager // Call object to load Audios (avoids FPS drop when playing a sound for the 1st time)
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
     GameState.room = dungeon.map(dungeon.currentPosY)(dungeon.currentPosX)
   }
 
+  /**
+   * Called at each frame to render different graphical elements.
+   * @param g GdxGraphics object
+   */
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
 
