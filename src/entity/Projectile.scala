@@ -18,7 +18,7 @@ class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObjec
   private val _hitbox: Rectangle2D.Float = new Rectangle2D.Float(pos.x,pos.y, RADIUS*2, RADIUS*2)
   private val _owner = own // "HERO" to deal damage to enemies or "ENEMY" to deal damage to the player
 
-  private val HERO_COLOR: Color   = Color.BLUE
+  private val HERO_COLOR: Color   = Color.YELLOW
   private val ENEMY_COLOR: Color  = Color.RED
 
   def hitbox: Rectangle2D.Float = _hitbox
