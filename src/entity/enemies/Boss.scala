@@ -17,7 +17,7 @@ import scala.util.Random
  * @param positions Array containing the positions where the boss will move
  */
 class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, posY) {
-  override var _hp: Int = 10
+  override var _hp: Int = 1
   override val SPRITE_WIDTH: Int = 128
   override val SPRITE_HEIGHT: Int = 128
 
