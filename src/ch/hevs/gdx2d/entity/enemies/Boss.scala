@@ -59,6 +59,8 @@ class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, 
   override def ko(): Unit = {
     AudioManager.win()
     super.ko()
+    Projectile.removeAll()
+    GameState.bossIsAlive = false
   }
 
   /**

@@ -9,6 +9,7 @@ import ch.hevs.gdx2d.lib.utils.Logger
 import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.controllers.Controller
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Align
 
 class GameScreen extends PortableApplication(1920, 1080) {
   var dungeon: Dungeon = null
@@ -24,7 +25,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
     Enemy.removeAll()
     Projectile.removeAll()
 
-    dungeon = new Dungeon(16,16, 4)
+    dungeon = new Dungeon(16,16, 2)
     dungeon.generate()
 
     AudioManager // Call object to load Audios (avoids FPS drop when playing a sound for the 1st time)
@@ -39,21 +40,29 @@ class GameScreen extends PortableApplication(1920, 1080) {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
 
-    dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.setView(g.getCamera)
-    dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.render()
-
-    checkCollision()
-    GameState.hero.update(g)
-    Projectile.update(g)
-    Enemy.update(g)
-
-    if(drawHitbox) {
-      displayHitbox(g)
+    if (GameState.hero.hp <= 0) {
+     g.drawString(getWindowWidth/2, getWindowHeight/2, "Game over, press R to restart the game",Align.center)
     }
+    else if(!GameState.bossIsAlive) {
+      g.drawString(getWindowWidth/2, getWindowHeight/2, "You won the game gg wp, press R to restart the game",Align.center)
+    }
+    else {
+      dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.setView(g.getCamera)
+      dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).tiledMapRender.render()
 
-    CollisionManager.checkHitbox()
-    UserInterface.drawUI(g)
-    g.drawFPS()
+      checkCollision()
+      GameState.hero.update(g)
+      Projectile.update(g)
+      Enemy.update(g)
+
+      if(drawHitbox) {
+        displayHitbox(g)
+      }
+
+      CollisionManager.checkHitbox()
+      UserInterface.drawUI(g)
+      g.drawFPS()
+    }
   }
 
   // <editor-fold desc="Keyboard methods">

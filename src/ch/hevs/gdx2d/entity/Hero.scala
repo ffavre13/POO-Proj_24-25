@@ -3,7 +3,7 @@ package ch.hevs.gdx2d.entity
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
-import ch.hevs.gdx2d.utility.AudioManager
+import ch.hevs.gdx2d.utility.{AudioManager, GameState}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
@@ -130,6 +130,5 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
 
   override def ko(): Unit = {
     println(s"Hero is KO ! (HP : $hp)")
-    System.exit(0)
   }
 }
