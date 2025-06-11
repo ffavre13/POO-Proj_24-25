@@ -1,7 +1,33 @@
-# Hello `gdx2d` for Scala !
+# Bullet Dungeon
 
-Desktop bootstrap project based on the latest `gdx2d` library. The project is ready to use in _IntelliJ_. It uses the `gdx2d-desktop` library version `1.2.1`.
+## Screenshots
 
-The `gdx2d` sources are available in the library Jar file (in the `libs` folder). The Javadoc API of the library can be found [here](https://hevs-isi.github.io/gdx2d/javadoc/).
+## Video
 
-Java 11 or higher is required to run this project. An `Ant` build script is provided to export the project as a runnable Jar (available in the `dist` folder).
+## Structure
+The project is structured as it follows :
+```
+📁 <root>
+├── 📁 data            # 
+├── 📁 libs             # 
+├── 📁 src/ch             # 
+│   ├── 📄 Game.scala  # 
+│   ├── 📁 components  # 
+│   └── 📁 res         # 
+│       ├── 📁 img     # 
+└──     └── 📁 audio   # 
+```
+
+## Controls
+**For player 1 :** `WASD` to move  
+**For player 2 :** `IJKL` or `↑ ← → ↓` to move
+
+
+## Launch the project
+**Using IntelliJ Community :**
+1. Clone the repository
+2. Set up your JDK and Scala SDK
+3. If the FunGraphics lib isn't imported correctly, import it by right-clicking   
+   on the `res/lib/fungraphics-1.5.15.jar` file and pressing `Add as library` button.
+4. Launch the `src/Game.scala` file.
+5. Enjoy ! :smile:

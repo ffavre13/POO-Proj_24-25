@@ -28,7 +28,8 @@ class GameScreen extends PortableApplication(1920, 1080) {
     dungeon = new Dungeon(16,16, 2)
     dungeon.generate()
 
-    AudioManager // Call object to load Audios (avoids FPS drop when playing a sound for the 1st time)
+    AudioManager // Call object to load Audios (avoids FPS drop whesn playing a sound for the 1st time)
+    GameState.hero = null
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
     GameState.room = dungeon.map(dungeon.currentPosY)(dungeon.currentPosX)
   }
@@ -82,7 +83,6 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.LEFT  => GameState.hero.turn("LEFT")
       case Input.Keys.Z     => drawHitbox = !drawHitbox
       case Input.Keys.R     => onInit()
-      case Input.Keys.SHIFT_LEFT => GameState.hero.speed *= 2
       case _                => Logger.log(s"Key '$keycode' pressed")
     }
     GameState.hero.velocity = vel
@@ -96,7 +96,6 @@ class GameScreen extends PortableApplication(1920, 1080) {
       case Input.Keys.A  => vel.x = 0
       case Input.Keys.D  => vel.x = 0
       case Input.Keys.W  => vel.y = 0
-      case Input.Keys.SHIFT_LEFT => GameState.hero.speed /= 2
       case _ =>
     }
     GameState.hero.velocity = vel

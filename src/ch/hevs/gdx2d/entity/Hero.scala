@@ -17,7 +17,7 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
 
   override var _hp: Int = 3
   private val _totalHP: Int = _hp
-  private var _speed: Float = 200f
+  private var _speed: Float = 400f
   private var _position: Vector2 = new Vector2(startX, startY)
   private var _velocity: Vector2 = new Vector2(0,0)
   private var _hitbox: Rectangle2D = new Rectangle2D.Float(startX, startY, SPRITE_WIDTH.toFloat, SPRITE_HEIGHT.toFloat)
