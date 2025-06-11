@@ -128,19 +128,11 @@ class Game extends PortableApplication(1920, 1080) {
       case Xbox.A => GameState.hero.turn("DOWN"); shoot = true
       case Xbox.X => GameState.hero.turn("LEFT"); shoot = true
       case Xbox.B => GameState.hero.turn("RIGHT"); shoot = true
-      case Xbox.R_BUMPER => GameState.hero.speed *= 2
       case _ =>
     }
     if (shoot) GameState.hero.shoot()
   }
 
-  override def onControllerKeyUp(controller: Controller, buttonCode: Int): Unit = {
-    super.onControllerKeyDown(controller, buttonCode)
-    buttonCode match {
-      case Xbox.R_BUMPER => GameState.hero.speed /= 2
-      case _ =>
-    }
-  }
   // </editor-fold>
 
   def displayHitbox(g: GdxGraphics): Unit = {
