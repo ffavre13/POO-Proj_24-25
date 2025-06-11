@@ -27,7 +27,7 @@ class Game extends PortableApplication(1920, 1080) {
     dungeon = new Dungeon(16,16, 10)
     dungeon.generate()
 
-    AudioManager // Call object to load Audios (avoids FPS drop whesn playing a sound for the 1st time)
+    AudioManager // Call object to load Audios (avoids FPS drop when playing a sound for the 1st time)
     GameState.hero = null
     GameState.bossIsAlive = true
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
