@@ -18,7 +18,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
   private var drawHitbox: Boolean = false
 
   override def onInit(): Unit = {
-    setTitle("The binding of Isaac")
+    setTitle("Bullet Dungeon")
 
     Enemy.removeAll()
     Projectile.removeAll()
