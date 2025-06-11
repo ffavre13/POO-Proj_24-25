@@ -42,15 +42,6 @@ class Room(tiledMapLocation: String, enemy: ArrayBuffer[Enemy], isBossRoom: Bool
     props.put("direction", direction)
     addDoor(rectangle)
   }
-
-  def roomIsClear(): Boolean = {
-    if(enemy == null) {
-      true
-    }
-    else {
-      false
-    }
-  }
 }
 
 object Room {
