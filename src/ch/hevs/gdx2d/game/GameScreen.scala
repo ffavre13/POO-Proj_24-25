@@ -19,7 +19,7 @@ class GameScreen extends PortableApplication(1920, 1080) {
 
   /** Initializes the game. */
   override def onInit(): Unit = {
-    setTitle("The binding of Isaac")
+    setTitle("Bullet Dungeon")
 
     Enemy.removeAll()
     Projectile.removeAll()
