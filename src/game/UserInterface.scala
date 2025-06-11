@@ -1,9 +1,9 @@
-package ch.hevs.gdx2d.game
+package game
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
-import ch.hevs.gdx2d.utility.GameState
 import com.badlogic.gdx.utils.Align
+import utility.GameState
 
 object UserInterface {
   private val HP_SIZE: Int = 64

@@ -1,12 +1,12 @@
-package ch.hevs.gdx2d.entity.enemies
+package entity.enemies
 
-import ch.hevs.gdx2d.entity.Projectile
-import ch.hevs.gdx2d.game.UserInterface
 import ch.hevs.gdx2d.lib.GdxGraphics
-import ch.hevs.gdx2d.utility.{AudioManager, GameState}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import entity.Projectile
+import game.UserInterface
+import utility.{AudioManager, GameState}
 
 import scala.util.Random
 

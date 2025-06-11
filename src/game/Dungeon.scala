@@ -1,13 +1,14 @@
-package ch.hevs.gdx2d.game
-import ch.hevs.gdx2d.entity.{Hero, Projectile}
-import ch.hevs.gdx2d.entity.enemies.{Boss, Enemy}
-import ch.hevs.gdx2d.utility.{GameState, PositionXY}
+package game
+
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.badlogic.gdx.math.Vector2
+import entity.{Hero, Projectile}
+import entity.enemies.{Boss, Enemy}
+import utility.{GameState, PositionXY}
 
 import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer

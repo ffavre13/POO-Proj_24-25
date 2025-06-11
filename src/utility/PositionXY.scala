@@ -1,4 +1,4 @@
-package ch.hevs.gdx2d.utility
+package utility
 
 class PositionXY(y: Int, x: Int) {
   var _posX: Int = x

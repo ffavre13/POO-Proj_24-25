@@ -1,7 +1,7 @@
-package ch.hevs.gdx2d.utility
+package utility
 
-import ch.hevs.gdx2d.entity.Hero
-import ch.hevs.gdx2d.game.Room
+import entity.Hero
+import game.Room
 
 object GameState {
   var hero: Hero = null

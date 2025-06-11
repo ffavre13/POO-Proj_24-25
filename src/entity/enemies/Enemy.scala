@@ -1,11 +1,11 @@
-package ch.hevs.gdx2d.entity.enemies
+package entity.enemies
 
-import ch.hevs.gdx2d.entity.Entity
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
-import ch.hevs.gdx2d.utility.GameState
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
+import entity.Entity
+import utility.GameState
 
 import java.awt.geom.{Ellipse2D, Rectangle2D}
 import scala.collection.mutable.ArrayBuffer

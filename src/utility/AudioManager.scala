@@ -1,4 +1,4 @@
-package ch.hevs.gdx2d.utility
+package utility
 
 import ch.hevs.gdx2d.components.audio.SoundSample
 

@@ -1,9 +1,9 @@
-package ch.hevs.gdx2d.entity.enemies
+package entity.enemies
 
-import ch.hevs.gdx2d.entity.Projectile
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import entity.Projectile
 
 class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean, shootLeft: Boolean, shootRight: Boolean) extends Enemy(posX, posY) {
 

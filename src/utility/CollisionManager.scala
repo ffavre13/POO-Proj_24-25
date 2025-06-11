@@ -1,8 +1,8 @@
-package ch.hevs.gdx2d.utility
+package utility
 
-import ch.hevs.gdx2d.entity.Projectile
-import ch.hevs.gdx2d.entity.enemies.Enemy
 import com.badlogic.gdx.maps.{MapLayer, MapObject, MapProperties}
+import entity.Projectile
+import entity.enemies.Enemy
 
 import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer

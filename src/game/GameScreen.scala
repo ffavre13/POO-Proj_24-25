@@ -1,15 +1,15 @@
-package ch.hevs.gdx2d.game
+package game
 
-import ch.hevs.gdx2d.utility.{AudioManager, CollisionManager, GameState}
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
-import ch.hevs.gdx2d.entity.enemies.{Enemy, ShootingEnemies, TargetPlayerEnemies}
-import ch.hevs.gdx2d.entity.{Hero, Projectile}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
 import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.controllers.Controller
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Align
+import entity.{Hero, Projectile}
+import entity.enemies.{Enemy, ShootingEnemies, TargetPlayerEnemies}
+import utility.{AudioManager, CollisionManager, GameState}
 
 class GameScreen extends PortableApplication(1920, 1080) {
   var dungeon: Dungeon = null

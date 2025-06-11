@@ -1,11 +1,11 @@
-package ch.hevs.gdx2d.game
+package game
 
-import ch.hevs.gdx2d.utility.CollisionManager
-import ch.hevs.gdx2d.entity.enemies.{Enemy, ShootingEnemies}
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.{MapLayer, MapObject}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
+import entity.enemies.{Enemy, ShootingEnemies}
+import utility.CollisionManager
 
 import scala.collection.mutable.ArrayBuffer
 

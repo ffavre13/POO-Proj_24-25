@@ -1,4 +1,4 @@
-package ch.hevs.gdx2d.entity
+package entity
 
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject

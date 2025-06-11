@@ -1,4 +1,4 @@
-package ch.hevs.gdx2d.entity
+package entity
 
 trait Entity {
   protected var _hp: Int

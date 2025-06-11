@@ -1,11 +1,11 @@
-package ch.hevs.gdx2d.entity.enemies
+package entity.enemies
 
-import ch.hevs.gdx2d.entity.Projectile
 import ch.hevs.gdx2d.lib.GdxGraphics
-import ch.hevs.gdx2d.utility.GameState
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import entity.Projectile
+import utility.GameState
 
 class TargetPlayerEnemies(posX: Int, posY: Int) extends Enemy(posX, posY) {
   override var _hp: Int = 1

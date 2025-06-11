@@ -1,11 +1,11 @@
-package ch.hevs.gdx2d.entity
+package entity
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
-import ch.hevs.gdx2d.utility.{AudioManager, GameState}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
+import utility.{AudioManager, GameState}
 
 import java.awt.geom.Rectangle2D
 
