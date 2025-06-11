@@ -24,7 +24,7 @@ class Game extends PortableApplication(1920, 1080) {
     Enemy.removeAll()
     Projectile.removeAll()
 
-    dungeon = new Dungeon(16,16, 2)
+    dungeon = new Dungeon(16,16, 10)
     dungeon.generate()
 
     AudioManager // Call object to load Audios (avoids FPS drop whesn playing a sound for the 1st time)
