@@ -1,6 +1,8 @@
 # Bullet Dungeon
 
 ## Screenshots
+![Gameplay screenshot 1](https://github.com/user-attachments/assets/42339b16-1ed6-465b-9a4f-fc68fd0173bc)
+![Gameplay screenshot 2](https://github.com/user-attachments/assets/4319b449-8d05-406a-bae2-d65b8eb10704)
 
 ## Video
 https://github.com/user-attachments/assets/9d8701d7-59fe-484f-997b-8338b37c3875
