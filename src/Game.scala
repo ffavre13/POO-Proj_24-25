@@ -1,17 +1,16 @@
-package game
-
 import ch.hevs.gdx2d.desktop.{PortableApplication, Xbox}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.utils.Logger
-import com.badlogic.gdx.{Gdx, Input}
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.controllers.Controller
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Align
+import entity.enemies.Enemy
 import entity.{Hero, Projectile}
-import entity.enemies.{Enemy, ShootingEnemies, TargetPlayerEnemies}
+import game.{Dungeon, UserInterface}
 import utility.{AudioManager, CollisionManager, GameState}
 
-class GameScreen extends PortableApplication(1920, 1080) {
+class Game extends PortableApplication(1920, 1080) {
   var dungeon: Dungeon = null
   var ctrl: Controller = null
 
@@ -181,6 +180,6 @@ class GameScreen extends PortableApplication(1920, 1080) {
   }
 }
 
-object GameScreen extends App {
-  new GameScreen
+object Game extends App {
+  new Game
 }
