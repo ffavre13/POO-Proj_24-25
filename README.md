@@ -3,7 +3,7 @@
 ## Screenshots
 
 ## Video
-https://raw.githubusercontent.com/ffavre13/POO-Proj_24-25/master/gameplay.mp4
+https://github.com/user-attachments/assets/9d8701d7-59fe-484f-997b-8338b37c3875
 
 ## Structure
 The project is structured as it follows :
