@@ -20,7 +20,7 @@ class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean
     super.update(elapsedTime)
     dt = elapsedTime + dt
     if (dt > SHOOT_COOLDOWN) {
-      shoot(dt)
+      shoot()
       dt = 0
     }
   }
@@ -35,9 +35,8 @@ class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean
 
   /**
    * Manages enemies fire
-   * @param dt Delta time
    */
-  private def shoot(dt: Float): Unit = {
+  private def shoot(): Unit = {
     if (shootUp)    Projectile.create(new Vector2(posX, posY), new Vector2(0, 1), "ENEMY")
     if (shootDown)  Projectile.create(new Vector2(posX, posY), new Vector2(0, -1), "ENEMY")
     if (shootLeft)  Projectile.create(new Vector2(posX, posY), new Vector2(-1, 0), "ENEMY")
