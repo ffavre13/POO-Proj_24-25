@@ -1,9 +1,10 @@
 package utility
 
 class PositionXY(y: Int, x: Int) {
-  var _posX: Int = x
-  var _posY: Int = y
+  var _posX: Int = x    // Position X
+  var _posY: Int = y    // Position Y
 
+  // Getter & Setter
   def posX: Int = _posX
   def posY: Int = _posY
 

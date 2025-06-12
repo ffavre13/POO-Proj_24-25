@@ -7,11 +7,15 @@ import entity.Projectile
 
 class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean, shootLeft: Boolean, shootRight: Boolean) extends Enemy(posX, posY) {
 
-  override var _hp: Int = 1
+  override var _hp: Int = 1     // life point
 
-  private val SHOOT_COOLDOWN: Float = 1.0f
+  private val SHOOT_COOLDOWN: Float = 1.0f    // Cooldown between all enemy fire
   private var dt: Float = 0 // Time used to calculate the cooldown
 
+  /**
+   * Updates the enemy (meant to be called on each frame generation)
+   * @param elapsedTime Time elapsed between two frames
+   */
   override def update(elapsedTime: Float): Unit = {
     super.update(elapsedTime)
     dt = elapsedTime + dt
@@ -21,10 +25,18 @@ class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean
     }
   }
 
+  /**
+   * Draws the enemy on the screen
+   * @param g GdxGraphics object
+   */
   override def draw(g: GdxGraphics): Unit = {
     g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, Color.BLACK)
   }
 
+  /**
+   * Manages enemies fire
+   * @param dt Delta time
+   */
   private def shoot(dt: Float): Unit = {
     if (shootUp)    Projectile.create(new Vector2(posX, posY), new Vector2(0, 1), "ENEMY")
     if (shootDown)  Projectile.create(new Vector2(posX, posY), new Vector2(0, -1), "ENEMY")

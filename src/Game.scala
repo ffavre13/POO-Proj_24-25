@@ -11,8 +11,8 @@ import game.{Dungeon, UserInterface}
 import utility.{AudioManager, CollisionManager, GameState}
 
 class Game extends PortableApplication(1920, 1080) {
-  var dungeon: Dungeon = null
-  var ctrl: Controller = null
+  var dungeon: Dungeon = null // Game dungeon
+  var ctrl: Controller = null // controller
 
   // Tells if the hitboxes should be displayed to the player
   private var drawHitbox: Boolean = false
@@ -24,7 +24,7 @@ class Game extends PortableApplication(1920, 1080) {
     Enemy.removeAll()
     Projectile.removeAll()
 
-    dungeon = new Dungeon(16,16, 3)
+    dungeon = new Dungeon(16,16, 4)
     dungeon.generate()
 
     AudioManager // Call object to load Audios (avoids FPS drop when playing a sound for the 1st time)
@@ -69,6 +69,11 @@ class Game extends PortableApplication(1920, 1080) {
   }
 
   // <editor-fold desc="Keyboard methods">
+
+  /**
+   * Manage key press events
+   * @param keycode Keyboard keys
+   */
   override def onKeyDown(keycode: Int): Unit = {
     super.onKeyDown(keycode)
 
@@ -90,6 +95,11 @@ class Game extends PortableApplication(1920, 1080) {
     GameState.hero.velocity = vel
   }
 
+
+  /**
+   * Manage key release events
+   * @param keycode Keyboard keys
+   */
   override def onKeyUp(keycode: Int): Unit = {
     var vel: Vector2 = GameState.hero.velocity
 
@@ -106,22 +116,42 @@ class Game extends PortableApplication(1920, 1080) {
   // </editor-fold>
 
   // <editor-fold desc="Controller methods">
+
+  /**
+   * Checks if a controller is connected
+   * @param controller The controller
+   */
   override def onControllerConnected(controller: Controller): Unit = {
     println("A controller has been connected !")
     ctrl = controller
   }
 
+  /**
+   * Checks if a controller is disconnected
+   * @param controller The controller
+   */
   override def onControllerDisconnected(controller: Controller): Unit = {
     println("A controller has been disconnected !")
     ctrl = null
   }
 
+  /**
+   * Manage controller joystick
+   * @param controller The controller
+   * @param axisCode The joystick that is moved
+   * @param value The joystick value
+   */
   override def onControllerAxisMoved(controller: Controller, axisCode: Int, value: Float): Unit = {
     super.onControllerAxisMoved(controller, axisCode, value)
     if (axisCode == Xbox.L_STICK_HORIZONTAL_AXIS) GameState.hero.velocity.x = value
     if (axisCode == Xbox.L_STICK_VERTICAL_AXIS) GameState.hero.velocity.y = -value
   }
 
+  /**
+   * Manage controller buttons
+   * @param controller The controller
+   * @param buttonCode The button that has been pressed
+   */
   override def onControllerKeyDown(controller: Controller, buttonCode: Int): Unit = {
     super.onControllerKeyUp(controller, buttonCode)
     var shoot: Boolean = false
@@ -137,12 +167,20 @@ class Game extends PortableApplication(1920, 1080) {
 
   // </editor-fold>
 
+  /**
+   * This function manage the rendering of hitboxes for various entities in the game.
+   * @param g The graphics context used for drawing
+   */
   def displayHitbox(g: GdxGraphics): Unit = {
     GameState.hero.drawHitbox(g)
     Enemy.displayHitboxes(g)
     Projectile.displayHitboxes(g)
   }
 
+  /**
+   * Checks whether a collision between the player and a wall or the player and a door is detected.
+   * If the player encounters a door, the switchRoom method is called
+   */
   def checkCollision(): Unit = {
 
     for(e <- dungeon.map(dungeon.currentPosY)(dungeon.currentPosX).collisionsDoor) {

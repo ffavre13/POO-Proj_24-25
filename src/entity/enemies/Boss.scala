@@ -17,25 +17,29 @@ import scala.util.Random
  * @param positions Array containing the positions where the boss will move
  */
 class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, posY) {
-  override var _hp: Int = 10
-  override val SPRITE_WIDTH: Int = 128
-  override val SPRITE_HEIGHT: Int = 128
+  override var _hp: Int = 10                    // Life point
+  override val SPRITE_WIDTH: Int = 128          // Boss width
+  override val SPRITE_HEIGHT: Int = 128         // Boss height
 
   private val SHOOT_COOLDOWN: Float = 0.2f      // Time to wait between 2 shots
   private val TIME_BETWEEN_PHASES: Float = 10f  // Time between the 2 boss phases
   private val BULLET_SPEED: Float = 2f          // Speed multiplier for the bullets
   private var shootAngle: Float = 10            // Angle that is added each time the boss shoots
 
-  private var dt_shoot: Float = 0   // Time used to calculate the shoot cooldown
-  private var dt_phases: Float = 0  // Time used to calculate the time between phases
-  private var _velocity: Vector2 = new Vector2(0, 0)
-  private var _speed: Float = 100
-  private var targetPosition: Vector2 = null
+  private var dt_shoot: Float = 0               // Time used to calculate the shoot cooldown
+  private var dt_phases: Float = 0              // Time used to calculate the time between phases
+  private var _velocity: Vector2 = new Vector2(0, 0)  // Velocity of the boss
+  private var _speed: Float = 100               // Speed of the boss
+  private var targetPosition: Vector2 = null    // Position of the boss
   private val currVelocity_1: Vector2 = new Vector2(0, BULLET_SPEED) // Bullet Velocity
   private val currVelocity_2: Vector2 = new Vector2(0, -BULLET_SPEED)
   private val currVelocity_3: Vector2 = new Vector2(BULLET_SPEED, 0)
   private val currVelocity_4: Vector2 = new Vector2(-BULLET_SPEED, 0)
 
+  /**
+   * Updates the state of the boss (move them, make them shoot, ...)
+   * @param elapsedTime Time elapsed between two frames
+   */
   override def update(elapsedTime: Float): Unit = {
     super.update(elapsedTime)
     dt_shoot = elapsedTime + dt_shoot
@@ -51,11 +55,18 @@ class Boss(posX: Int, posY: Int, positions: Array[Vector2]) extends Enemy(posX, 
     }
   }
 
+  /**
+   * Draws the boss on the screen
+   * @param g GdxGraphics object
+   */
   override def draw(g: GdxGraphics): Unit = {
     g.drawFilledCircle(position.x, position.y, SPRITE_WIDTH/2, Color.RED)
     UserInterface.drawBossHealth(g, _hp)
   }
 
+  /**
+   * Delete the boss if it has no life left
+   */
   override def ko(): Unit = {
     AudioManager.win()
     super.ko()

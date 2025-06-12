@@ -10,30 +10,38 @@ import entity.{Hero, Projectile}
 import entity.enemies.{Boss, Enemy}
 import utility.{GameState, PositionXY}
 
-import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
 class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
-  val _map: Array[Array[Room]] = Array.fill(height, width)(null)
-  var _currentPosX: Int = width / 2
-  var _currentPosY: Int = height / 2
+  private val _map: Array[Array[Room]] = Array.fill(height, width)(null)    // Array containing all the dungeon rooms
+  private var _currentPosX: Int = width / 2     // Current Room, position X
+  private var _currentPosY: Int = height / 2    // Current Room, position Y
 
 
-  var doorTexture = new TextureRegion(new Texture("data/images/door_open_64.png"))
+  private var doorTexture = new TextureRegion(new Texture("data/images/door_open_64.png"))  // Door texture
   doorTexture = new TextureRegion(doorTexture, 0, 0, 64, 64)
 
-  val doorTile = new StaticTiledMapTile(doorTexture)
+  private val doorTile = new StaticTiledMapTile(doorTexture)  // Door tileMap
 
-  val dCell = new TiledMapTileLayer.Cell()
+  private val dCell = new TiledMapTileLayer.Cell()  // New cell for door
   dCell.setTile(doorTile)
 
 
-  def currentPosX: Int = _currentPosX
+  def currentPosX: Int = {
+    _currentPosX
+  }
 
-  def currentPosY: Int = _currentPosY
+  def currentPosY: Int = {
+    _currentPosY
+  }
 
-  def map: Array[Array[Room]] = _map
+  def map: Array[Array[Room]] = {
+    _map
+  }
 
+  /**
+   * Generate all the room in the donjon and ceck if 2 room are next to each other.
+   */
   def generate(): Unit = {
     val startY = height / 2
     val startX = width / 2
@@ -95,6 +103,11 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
 
   }
 
+  /**
+   * Calculates all possible positions to add a new room. (Each new room must be next to at least one existing room)
+   * @param grid dungeon map
+   * @return Return an array containning all the possible positions
+   */
   def possiblePosition(grid: Array[Array[Room]]): Array[PositionXY] = {
     var result: ArrayBuffer[PositionXY] = ArrayBuffer.empty
 
@@ -120,6 +133,10 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
     return result.toArray
   }
 
+  /**
+   * Display the dungeon map in the console
+   * @param grid dungeon map
+   */
   def displayConsole(grid: Array[Array[Room]]): Unit = {
     for(x <- map.indices) {
       for(y <- map(x).indices) {
@@ -134,6 +151,11 @@ class Dungeon(val width: Int, val height: Int, val totalRooms: Int) {
     }
   }
 
+  /**
+   * If a collision between the hero and a door is detected, this fonction will change the current room
+   * @param hero The hero
+   * @param door MapOject containning all the doors
+   */
   def switchRoom(hero: Hero, door: MapObject): Unit = {
     val direction = door.getProperties.get("direction").toString
     val room = map(currentPosY)(currentPosX)

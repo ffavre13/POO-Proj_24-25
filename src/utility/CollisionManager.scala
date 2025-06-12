@@ -8,6 +8,12 @@ import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
 object CollisionManager{
+
+  /**
+   * return collision contained in the map layer
+   * @param c Map layer
+   * @return return an array containning all the collision
+   */
   def getCollisions(c: MapLayer): Array[MapObject] = {
     var arr: ArrayBuffer[MapObject] = new ArrayBuffer[MapObject]()
     for (a <- 0 until c.getObjects.getCount) {
@@ -16,6 +22,11 @@ object CollisionManager{
     return arr.toArray
   }
 
+  /**
+   * Transforms collisions into a rectangle2D
+   * @param a MapObject
+   * @return return a rectangle2D
+   */
   def getRectangle2D(a: MapObject): Rectangle2D.Float = {
     val props: MapProperties = a.getProperties
     return new Rectangle2D.Float(
@@ -26,6 +37,11 @@ object CollisionManager{
     )
   }
 
+  /**
+   * Transforms multiple MapObject into multiple Rectangle2D
+   * @param mapObjects Array of map objects
+   * @return Return an array of rectangle 2D
+   */
   def getRectangles2D(mapObjects: Array[MapObject]): Array[Rectangle2D.Float] = {
     var res: ArrayBuffer[Rectangle2D.Float] = new ArrayBuffer[Rectangle2D.Float]()
     for (a <- mapObjects) {

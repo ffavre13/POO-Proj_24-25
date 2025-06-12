@@ -10,21 +10,48 @@ import utility.CollisionManager
 import scala.collection.mutable.ArrayBuffer
 
 class Room(tiledMapLocation: String, enemy: ArrayBuffer[Enemy], isBossRoom: Boolean = false) {
-  var tiledMap = new TmxMapLoader().load(tiledMapLocation)
-  var tiledMapRender = new OrthogonalTiledMapRenderer(tiledMap)
+  private val tiledMap = new TmxMapLoader().load(tiledMapLocation)        // Load the tiledMap file
+  private val _tiledMapRender = new OrthogonalTiledMapRenderer(tiledMap)
 
-  var tiledLayer: TiledMapTileLayer = tiledMap.getLayers.get("map").asInstanceOf[TiledMapTileLayer]
-  private var objectLayerWall: MapLayer = tiledMap.getLayers.get("collision")
-  private var objectLayerDoor: MapLayer = tiledMap.getLayers.get("door_collision")
+  private var _tiledLayer: TiledMapTileLayer = tiledMap.getLayers.get("map").asInstanceOf[TiledMapTileLayer]  // Layer containning all tiles
+  private val objectLayerWall: MapLayer = tiledMap.getLayers.get("collision")     // Layer containning all the wall hitboxes
+  private var objectLayerDoor: MapLayer = tiledMap.getLayers.get("door_collision")  // Layer containning all the door collision
 
-  var collisionsWall: Array[MapObject] = CollisionManager.getCollisions(objectLayerWall)
-  var rectangleCollisionsWall = CollisionManager.getRectangles2D(collisionsWall)
+  private var _collisionsWall: Array[MapObject] = CollisionManager.getCollisions(objectLayerWall)   // Store all collisions in an Array
 
-  var collisionsDoor: Array[MapObject] = CollisionManager.getCollisions(objectLayerDoor)
-  var rectangleCollisionsDoor = CollisionManager.getRectangles2D(collisionsDoor)
+  private var _collisionsDoor: Array[MapObject] = CollisionManager.getCollisions(objectLayerDoor)   // Store all collisions in an Array
+  private var rectangleCollisionsDoor = CollisionManager.getRectangles2D(collisionsDoor)// transforms all collisions contained in the layer object into a 2D rectangle
 
-  var enemys: ArrayBuffer[Enemy] = enemy
+  private var _enemys: ArrayBuffer[Enemy] = enemy     // Enemies in the room
 
+  def collisionsWall: Array[MapObject] = {
+    _collisionsWall
+  }
+
+  def collisionsDoor: Array[MapObject] = {
+    _collisionsDoor
+  }
+
+  def collisionsDoor_= (newCollisionsDoor: Array[MapObject]): Unit = {
+    _collisionsDoor = newCollisionsDoor
+  }
+
+  def tiledLayer: TiledMapTileLayer = {
+    _tiledLayer
+  }
+
+  def tiledMapRender: OrthogonalTiledMapRenderer = {
+    _tiledMapRender
+  }
+
+  def enemys: ArrayBuffer[Enemy] = {
+    _enemys
+  }
+
+  /**
+   * Create a new door in the object layer
+   * @param door The door added
+   */
   def addDoor(door: RectangleMapObject): Unit = {
     objectLayerDoor.getObjects.add(door)
 
@@ -32,6 +59,14 @@ class Room(tiledMapLocation: String, enemy: ArrayBuffer[Enemy], isBossRoom: Bool
     rectangleCollisionsDoor = CollisionManager.getRectangles2D(collisionsDoor)
   }
 
+  /**
+   * Create a new hitbox for a door
+   * @param x Position X
+   * @param y Posistion Y
+   * @param width Door width
+   * @param height Door height
+   * @param direction Door direction
+   */
   def createNewDoorHitbox(x: Float, y: Float, width: Float, height: Float, direction: String): Unit = {
     val rectangle = new RectangleMapObject(x,y,width,height)
     val props = rectangle.getProperties
@@ -45,6 +80,8 @@ class Room(tiledMapLocation: String, enemy: ArrayBuffer[Enemy], isBossRoom: Bool
 }
 
 object Room {
+
+  // Array containning all room models
   var allRoomsFile: Array[(String, ArrayBuffer[Enemy])] = Array(
     ("data/maps/room01.tmx", ArrayBuffer(
       new ShootingEnemies(736,416,true, true, true, true),
@@ -85,6 +122,10 @@ object Room {
   )
 
 
+  /**
+   * Return a random room randomly selected form all models
+   * @return A new Room
+   */
   def getRandomRoom: Room = {
     val roomInfo: (String, ArrayBuffer[Enemy]) = allRoomsFile(Math.round(Math.random()*(allRoomsFile.length-1)).toInt)
     new Room(roomInfo._1,roomInfo._2.clone())
