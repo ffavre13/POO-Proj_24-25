@@ -24,10 +24,12 @@ class Game extends PortableApplication(1920, 1080) {
     Enemy.removeAll()
     Projectile.removeAll()
 
-    dungeon = new Dungeon(16,16, 10)
+    dungeon = new Dungeon(16,16, 3)
     dungeon.generate()
 
     AudioManager // Call object to load Audios (avoids FPS drop when playing a sound for the 1st time)
+    AudioManager.stop_win()
+
     GameState.hero = null
     GameState.bossIsAlive = true
     GameState.hero = new Hero(getWindowWidth/2, getWindowHeight/2)
@@ -41,10 +43,10 @@ class Game extends PortableApplication(1920, 1080) {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
 
-    if (GameState.hero.hp <= 0) {
+    if (GameState.hero.hp <= 0) { // Game over if player is KO
      g.drawString(getWindowWidth/2, getWindowHeight/2, "Game over, press R to restart the game",Align.center)
     }
-    else if(!GameState.bossIsAlive) {
+    else if(!GameState.bossIsAlive) { // Player wins if the boss is KO
       g.drawString(getWindowWidth/2, getWindowHeight/2, "You won the game gg wp, press R to restart the game",Align.center)
     }
     else {
