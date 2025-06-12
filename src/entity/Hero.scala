@@ -9,6 +9,11 @@ import utility.AudioManager
 
 import java.awt.geom.Rectangle2D
 
+/**
+ * Class representing the hero
+ * @param startX Initial X position of the hero
+ * @param startY Initial Y position of the hero
+ */
 class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
   private val SHOOT_COOLDOWN : Float = 0.5f     // Cooldown between hero fire
   private val SPRITE_WIDTH: Int = 64            // Hero width
@@ -23,11 +28,10 @@ class Hero(startX: Float, startY: Float) extends DrawableObject with Entity {
   private var _hitbox: Rectangle2D = new Rectangle2D.Float(startX, startY, SPRITE_WIDTH.toFloat, SPRITE_HEIGHT.toFloat)
 
   private var _direction: Vector2 = new Vector2(0,1)  // Hero shooting direction
-  private var textureX: Int = 0     // Hero sprit sheet texture
+  private var textureX: Int = 0     // Hero sprite sheet texture
   private var dt_shoot: Float = 0   // Delta time
 
   // Getter & setter
-
   def hitbox: Rectangle2D = {
     _hitbox
   }

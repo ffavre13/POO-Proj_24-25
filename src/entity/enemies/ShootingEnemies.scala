@@ -5,6 +5,15 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import entity.Projectile
 
+/**
+ * Enemy that can shoot in 4 directions (provided in parameters)
+ * @param posX Initial X position of the enemy
+ * @param posY Initial X position of the enemy
+ * @param shootUp If true, shoots up
+ * @param shootDown If true, shoots down
+ * @param shootLeft If true, shoots left
+ * @param shootRight If true, shoots right
+ */
 class ShootingEnemies(posX: Int, posY: Int, shootUp: Boolean, shootDown: Boolean, shootLeft: Boolean, shootRight: Boolean) extends Enemy(posX, posY) {
 
   override var _hp: Int = 1     // life point

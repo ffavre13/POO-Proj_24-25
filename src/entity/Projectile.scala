@@ -9,6 +9,12 @@ import com.badlogic.gdx.math.Vector2
 import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ArrayBuffer
 
+/**
+ * Class representing a projectile
+ * @param pos Initial position of the projectile
+ * @param vel Velocity of the projectile (indicates where the bullet will go)
+ * @param own Owner of the projectile. Can be "HERO" to deal damage to enemies or "ENEMY" to deal damages to the enemies
+ */
 class Projectile (pos: Vector2, vel: Vector2, own: String) extends DrawableObject {
   private val SPEED: Float = 400f   // Speed of projectile
   private val RADIUS: Float = 5     // radius for the projectile size
@@ -85,10 +91,6 @@ object Projectile {
     _projectiles.toArray
   }
 
-  /**
-   *
-   * @return
-   */
   def getHeroProjectile: Array[Projectile]  = {
     _projectiles.filter(a => a._owner == "HERO").toArray
   }
@@ -137,5 +139,6 @@ object Projectile {
     if (tmp >= 0) _projectiles.remove(tmp)
   }
 
+  /** Removes all projectiles */
   def removeAll(): Unit = _projectiles.clear()
 }
